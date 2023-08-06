@@ -6,7 +6,9 @@ const Footer = () => {
       <div>
         VMKS
       </div>
+      
     </footer>
+    
   )
 }
 
