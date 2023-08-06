@@ -72,6 +72,16 @@ interface UserMaterialInput{
     status: string
 }
 
+interface UserMaterialEditInput {
+    name: string,
+    partName: string,
+    borrowerId: number,
+    borrowNum: number,
+    borrowDate: string,
+    returnDate: string,
+    status: string
+}
+
 interface ThreeDPInput{
     name: string,
     category: string,
@@ -92,4 +102,16 @@ interface UserInput {
     laserCutAvailable: boolean,    
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }
+interface UserEditInput {
+    name: string,
+    studentID: string,
+    password: string,
+    photoLink: string
+}
+
+interface UserMachineUpdateInput {
+    threeDPId: number,
+    laserCutAvailable: boolean
+}
+
+export { AnnouncementInput, ToolInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput, UserInput, UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }
