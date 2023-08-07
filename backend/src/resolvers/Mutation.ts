@@ -530,6 +530,9 @@ const Mutation = {
         }
 
         const oldBorrowerId = findUserMaterial.borrowerId;
+        if(!borrowerId || !oldBorrowerId){
+            throw new Error("id not found!");
+        }
         if(borrowerId !== oldBorrowerId){
             const oldUser = await prisma.user.findFirst({
                 where: {
@@ -725,6 +728,9 @@ const Mutation = {
         }
 
         const oldThreeDPId = findUser.threeDPId;
+        if(!threeDPId || !oldThreeDPId){
+            throw new Error("id not found!");
+        }
         if(threeDPId !== oldThreeDPId){
             if(oldThreeDPId !== null){
                 const oldThreeDP = await prisma.threeDP.findFirst({
