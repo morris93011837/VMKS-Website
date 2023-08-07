@@ -1,11 +1,11 @@
 import React from "react"
 import { Link } from "react-router-dom"
-// import logo from "/src/vmks_logo.png"
+import logo from "../vmks_logo.png"; //./VMKS-Website/frontend/src/vmks_logo.png
 export const NavBar = () => {
   return(
     <nav>
       <div id="header">
-        <Link to='/'><img src="/home/brianyu/VMKS-Website/frontend/src"></img></Link>
+        <Link to='/'><img src={logo} alt="logo"/></Link>
         <Link to='LoginPage' style={{float:"right"}}>Login</Link>
       </div>
       
