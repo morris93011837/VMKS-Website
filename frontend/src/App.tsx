@@ -4,6 +4,7 @@ import { NavBar } from "./component/NavBar";
 import { NotFound } from "./pages/NotFound";
 import { HomePage } from "./pages/HomePage";
 import Footer from "./component/Footer";
+import MaterialDetail from './component/MaterialAndTool/MaterialDetail';
 
 const LoginPage = lazy(() => import('./pages/LoginPage'))
 const IntroductionPage = lazy(() => import('./pages/IntroductionPage'))
@@ -64,9 +65,10 @@ function App() {
         } />
         <Route path='MaterialAndTool/Material/:id' element={
           <Suspense fallback={<div>Loading...</div>}>
-            <Material />
+            <MaterialDetail />
           </Suspense>
         } />
+        
         <Route path='MaterialAndTool/Tool/:id' element={
           <Suspense fallback={<div>Loading...</div>}>
             <Tool />

@@ -1,7 +1,12 @@
 import { useNavigate, Link} from "react-router-dom"
+import { MaterialType } from '../component/MaterialAndTool/MaterialType';
+import { MaterialList } from '../component/MaterialAndTool/MaterialList';
+import useFetchMaterialList from '../component/MaterialAndTool/UseFetchMaterialList'
+import useFetchMaterial from '../component/MaterialAndTool/UseFetchMaterial';
 
 const MaterialAndToolPage = () => {
   const navigate = useNavigate()
+  const {data:materials, isPending} = useFetchMaterialList('http://localhost:8000/materials')
   return (
     <>
       <div>Material & Tool Page</div>
@@ -9,6 +14,7 @@ const MaterialAndToolPage = () => {
       <p>每個材料的card包含photo,fullname,position,borrow_button</p>
       <p><b>Material</b></p>
       1.  <Link to={'/MaterialAndTool/Material/'+0}>Each Material</Link> {/* +id */}
+      <div>{materials && <MaterialList materials={materials}/>}</div>
       <p><b>Tool</b></p>
       1.  <Link to={'/MaterialAndTool/Tool/'+0}>Each Tool</Link> {/* +id */}
       <br></br>
