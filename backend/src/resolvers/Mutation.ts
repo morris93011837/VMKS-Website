@@ -374,7 +374,7 @@ const Mutation = {
                 broken: broken
             }
         });
-
+        pubsub.publish('THREEDP_CREATED', { ThreeDPCreated: newThreeDP });
         return newThreeDP;
     },
 
@@ -405,6 +405,8 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('THREEDP_DELETED', { ThreeDPDeleted: DeleteThreeDP });
+
         return DeleteThreeDP;
     },
 
@@ -440,7 +442,7 @@ const Mutation = {
                 borrowHistoryId: { push: newUserMaterial.id }
             }
         });
-
+        pubsub.publish('USERMATERIAL_CREATED', { UserMaterialCreated: newUserMaterial });
         return newUserMaterial;
     },
 
@@ -480,6 +482,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('USERMATERIAL_DELETED', { UserMaterialDeleted: DeleteUserMaterial });
         return DeleteUserMaterial;
     },
 
@@ -498,7 +501,7 @@ const Mutation = {
             }
         }
 
-        const newUsers = await prisma.user.create({
+        const newUser = await prisma.user.create({
             data: {
                 name: name,
                 studentID: studentID,
@@ -516,12 +519,12 @@ const Mutation = {
                     id: threeDPId
                 },
                 data: {
-                    waitingId: { push: newUsers.id }
+                    waitingId: { push: newUser.id }
                 }
             });
         }
-
-        return newUsers;
+        pubsub.publish('USER_CREATED', { UserCreated: newUser });
+        return newUser;
     },
 
     DeleteUser: async (_parents, args: { id: number }, context) => {
@@ -571,6 +574,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('USER_DELETED', { UserDeleted: DeleteUser });
         return DeleteUser;
     }
 
