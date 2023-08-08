@@ -275,6 +275,12 @@ const typeDefs = `#graphql
     ToolCreated: Tool
     ToolDeleted: Tool
     ToolUpdated: Tool
+    ThreeDPCreated: ThreeDP
+    ThreeDPDeleted: ThreeDP
+    UserMaterialCreated: UserMaterial
+    UserMaterialDeleted: UserMaterial
+    UserCreated: User
+    UserDeleted: User
   }
 `;
 

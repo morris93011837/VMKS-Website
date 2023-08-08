@@ -18,6 +18,24 @@ const Subscription = {
     },
     ToolUpdated: {
         subscribe: () => pubsub.asyncIterator(['TOOL_UPDATED'])
+    },
+    ThreeDPCreated: {
+        subscribe: () => pubsub.asyncIterator(['THREEDP_CREATED'])
+    },
+    ThreeDPDeleted: {
+        subscribe: () => pubsub.asyncIterator(['THREEDP_DELETED'])
+    },
+    UserMaterialCreated: {
+        subscribe: () => pubsub.asyncIterator(['USERMATERIAL_CREATED'])
+    },
+    UserMaterialDeleted: {
+        subscribe: () => pubsub.asyncIterator(['USERMATERIAL_DELETED'])
+    },
+    UserCreated: {
+        subscribe: () => pubsub.asyncIterator(['USER_CREATED'])
+    },
+    UserDeleted: {
+        subscribe: () => pubsub.asyncIterator(['USER_DELETED'])
     }
 }
 
