@@ -9,6 +9,15 @@ const Subscription = {
     },
     AnnouncementUpdated: {
         subscribe: () => pubsub.asyncIterator(['ANNOUNCEMENT_UPDATED'])
+    },
+    ToolCreated: {
+        subscribe: () => pubsub.asyncIterator(['TOOL_CREATED']) 
+    },
+    ToolDeleted: {
+        subscribe: () => pubsub.asyncIterator(['TOOL_DELETED'])
+    },
+    ToolUpdated: {
+        subscribe: () => pubsub.asyncIterator(['TOOL_UPDATED'])
     }
 }
 
