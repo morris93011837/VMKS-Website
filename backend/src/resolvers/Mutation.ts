@@ -1,4 +1,5 @@
 import { prisma } from "../../prisma/client.ts";
+import { pubsub } from "../PubSub/pubsub.ts";
 import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
     DisposableMaterialInput, MachineInput, MaterialInput,
@@ -18,7 +19,7 @@ const Mutation = {
                 content: content
             }
         });
-
+        pubsub.publish('ANNOUNCEMENT_CREATED', { AnnouncementCreated: newAnnouncement });
         return newAnnouncement;
     },
 
@@ -38,6 +39,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('ANNOUNCEMENT_DELETED', { AnnouncementDeleted: deleteAnnouncement });
         return deleteAnnouncement;
     },
 
@@ -62,6 +64,7 @@ const Mutation = {
                 content: content
             }
         });
+        pubsub.publish('ANNOUNCEMENT_UPDATED', { AnnouncementUpdated: editAnnouncement });
         return editAnnouncement;
     },
 

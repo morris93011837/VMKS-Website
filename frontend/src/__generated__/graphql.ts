@@ -128,12 +128,14 @@ export type Mutation = {
   AddUser?: Maybe<User>;
   AddUserMaterial?: Maybe<UserMaterial>;
   DeleteAnnouncement?: Maybe<Announcement>;
+  DeleteMachine?: Maybe<Machine>;
   DeleteMaterial?: Maybe<Material>;
   DeleteThreeDP?: Maybe<ThreeDp>;
   DeleteTool?: Maybe<Tool>;
   DeleteUser?: Maybe<User>;
   DeleteUserMaterial?: Maybe<UserMaterial>;
   EditAnnouncement?: Maybe<Announcement>;
+  EditMachine?: Maybe<Machine>;
   EditMaterial?: Maybe<Material>;
   EditTool?: Maybe<Tool>;
   MaterialUsageUpdate?: Maybe<Material>;
@@ -186,6 +188,11 @@ export type MutationDeleteAnnouncementArgs = {
 };
 
 
+export type MutationDeleteMachineArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
 export type MutationDeleteMaterialArgs = {
   id: Scalars['Int']['input'];
 };
@@ -214,6 +221,12 @@ export type MutationDeleteUserMaterialArgs = {
 export type MutationEditAnnouncementArgs = {
   announcementInput: AnnouncementInput;
   id: Scalars['Int']['input'];
+};
+
+
+export type MutationEditMachineArgs = {
+  id: Scalars['Int']['input'];
+  machineInput: MachineInput;
 };
 
 
@@ -250,12 +263,24 @@ export type Query = {
   AllTools?: Maybe<Array<Maybe<Tool>>>;
   AllUser?: Maybe<Array<Maybe<User>>>;
   AllUserMaterials?: Maybe<Array<Maybe<UserMaterial>>>;
+  SearchMachinesByCategory?: Maybe<Array<Maybe<Machine>>>;
+  SearchMachinesByPosition?: Maybe<Array<Maybe<Machine>>>;
   SearchMaterialsByCategory?: Maybe<Array<Maybe<Material>>>;
   SearchMaterialsByPosition?: Maybe<Array<Maybe<Material>>>;
   SearchThreeDPByCategory?: Maybe<Array<Maybe<ThreeDp>>>;
   SearchThreeDPByPosition?: Maybe<Array<Maybe<ThreeDp>>>;
   SearchToolsByCategory?: Maybe<Array<Maybe<Tool>>>;
   SearchToolsByPosition?: Maybe<Array<Maybe<Tool>>>;
+};
+
+
+export type QuerySearchMachinesByCategoryArgs = {
+  category: Scalars['String']['input'];
+};
+
+
+export type QuerySearchMachinesByPositionArgs = {
+  position: Scalars['String']['input'];
 };
 
 
@@ -286,6 +311,13 @@ export type QuerySearchToolsByCategoryArgs = {
 
 export type QuerySearchToolsByPositionArgs = {
   position: Scalars['String']['input'];
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  AnnouncementCreated?: Maybe<Announcement>;
+  AnnouncementDeleted?: Maybe<Announcement>;
+  AnnouncementUpdated?: Maybe<Announcement>;
 };
 
 export type ThreeDp = {

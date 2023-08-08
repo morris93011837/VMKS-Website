@@ -1,26 +1,56 @@
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+
 import { typeDefs } from './types/typeDefs.ts';
 import { Query } from './resolvers/Query.ts';
 import { Mutation } from './resolvers/Mutation.ts'
 import { Subscription } from './resolvers/Subscription.ts';
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
+const app = express();
+const resolvers = { Query, Mutation, Subscription };
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+const httpServer = http.createServer(app);
+
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: '/graphql',
+});
+
+const serverCleanup = useServer({ schema }, wsServer);
+
 const server = new ApolloServer({
-  typeDefs,
-  resolvers: {
-    Query,
-    Mutation
-  },
-});
+  schema,
+  plugins: [
+    // Proper shutdown for the HTTP server.
+    ApolloServerPluginDrainHttpServer({ httpServer }),
 
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 5000 },
+    // Proper shutdown for the WebSocket server.
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose();
+          },
+        };
+      },
+    },
+  ],
 });
+await server.start();
 
-console.log(`🚀  Server ready at: ${url}`);
+app.use('/graphql', cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server));
+
+const PORT = 5000;
+// Now that our HTTP server is fully set up, we can listen to it.
+httpServer.listen(PORT, () => {
+  console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+});
