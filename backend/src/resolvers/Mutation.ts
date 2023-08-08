@@ -84,7 +84,7 @@ const Mutation = {
                 remain: remain
             }
         });
-
+        pubsub.publish('TOOL_CREATED', { ToolCreated: newTool });
         return newTool;
     },
 
@@ -104,6 +104,8 @@ const Mutation = {
                 id: id
             }
         });
+
+        pubsub.publish('TOOL_DELETED', { ToolDeleted: deleteTool });
         return deleteTool;
     },
 
@@ -136,6 +138,8 @@ const Mutation = {
                 remain: remain
             }
         });
+
+        pubsub.publish('TOOL_UPDATED', { ToolUpdated: editTool });
         return editTool;
     },
 
@@ -160,6 +164,8 @@ const Mutation = {
                 remain: remain
             }
         });
+
+        pubsub.publish('TOOL_UPDATED', { ToolUpdated: toolUsageUpdate });
         return toolUsageUpdate;
     },
 

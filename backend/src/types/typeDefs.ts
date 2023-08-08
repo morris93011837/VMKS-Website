@@ -272,6 +272,9 @@ const typeDefs = `#graphql
     AnnouncementCreated: Announcement
     AnnouncementDeleted: Announcement
     AnnouncementUpdated: Announcement
+    ToolCreated: Tool
+    ToolDeleted: Tool
+    ToolUpdated: Tool
   }
 `;
 
