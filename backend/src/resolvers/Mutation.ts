@@ -205,7 +205,7 @@ const Mutation = {
                 tutorialLink: tutorialLink
             }
         });
-
+        pubsub.publish('MACHINE_CREATED', { MachineCreated: newMachine });
         return newMachine;
     },
 
@@ -224,6 +224,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('MACHINE_DELETED', { MachineDeleted: deleteMachine });
         return deleteMachine;
     },
 
@@ -254,6 +255,7 @@ const Mutation = {
                 tutorialLink: tutorialLink
             }
         });
+        pubsub.publish('MACHINE_UPDATED', { MachineUpdated: editMachine });
         return editMachine;
     },
 

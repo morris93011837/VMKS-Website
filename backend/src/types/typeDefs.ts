@@ -275,6 +275,9 @@ const typeDefs = `#graphql
     ToolCreated: Tool
     ToolDeleted: Tool
     ToolUpdated: Tool
+    MachineCreated: Machine
+    MachineDeleted: Machine
+    MachineUpdated: Machine
     ThreeDPCreated: ThreeDP
     ThreeDPDeleted: ThreeDP
     UserMaterialCreated: UserMaterial
