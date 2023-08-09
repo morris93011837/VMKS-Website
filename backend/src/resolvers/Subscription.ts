@@ -25,17 +25,29 @@ const Subscription = {
     ThreeDPDeleted: {
         subscribe: () => pubsub.asyncIterator(['THREEDP_DELETED'])
     },
+    ThreeDPEdited: {
+        subscribe: () => pubsub.asyncIterator('THREEDP_EDIT')
+    },
     UserMaterialCreated: {
         subscribe: () => pubsub.asyncIterator(['USERMATERIAL_CREATED'])
     },
     UserMaterialDeleted: {
         subscribe: () => pubsub.asyncIterator(['USERMATERIAL_DELETED'])
     },
+    UserMaterialEdited: {
+        subscribe: () => pubsub.asyncIterator(['USERMATERIAL_EDIT'])
+    },
     UserCreated: {
         subscribe: () => pubsub.asyncIterator(['USER_CREATED'])
     },
     UserDeleted: {
         subscribe: () => pubsub.asyncIterator(['USER_DELETED'])
+    },
+    UserEdited: {
+        subscribe: () => pubsub.asyncIterator(['USER_EDIT'])
+    },
+    UserMachineUpdate: {
+        subscribe: () => pubsub.asyncIterator(['USERMACHINE_UPDATE'])
     }
 }
 

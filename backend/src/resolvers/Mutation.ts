@@ -438,6 +438,7 @@ const Mutation = {
                 broken: broken
             }
         });
+        pubsub.publish('THREEDP_EDIT', { ThreeDPEdited: editThreeDP });
         return editThreeDP;
     },
 
@@ -594,6 +595,7 @@ const Mutation = {
                 status: status
             }
         });
+        pubsub.publish('USERMATERIAL_EDIT', { UserMaterialEdited: editUserMaterial });
         return editUserMaterial;
     },
 
@@ -712,6 +714,7 @@ const Mutation = {
                 photoLink: photoLink
             }
         });
+        pubsub.publish('USER_EDIT', { UserEdited: editUser });
         return editUser;
     },
 
@@ -789,6 +792,7 @@ const Mutation = {
                 laserCutAvailable: laserCutAvailable
             }
         });
+        pubsub.publish('USERMACHINE_UPDATE', { UserMachineUpdate: editUser });
         return editUser;
     }
 
