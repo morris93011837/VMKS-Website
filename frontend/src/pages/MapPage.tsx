@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import mapImg from "../images/interior2D_1.jpg"
 
 const MapPage = () => {
   const navigate = useNavigate()
@@ -6,7 +7,7 @@ const MapPage = () => {
     <>
       <div>Map Page</div>
       <p>應該要有2D地圖，並連結3D地圖</p>
-        <img src="images/interior2D_1.jpg" alt="Interior2D" useMap="#interior2d"></img>
+        <img src={mapImg} alt="Interior2D" useMap="#interior2d"></img>
         <map name="interior2d">
         
           <area shape="rect" coords="1288,0,1465,102" alt="Laser1" href="/button"></area>
