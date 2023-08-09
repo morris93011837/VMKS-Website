@@ -1,4 +1,5 @@
 import { prisma } from "../../prisma/client.ts";
+import { pubsub } from "../PubSub/pubsub.ts";
 import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
     DisposableMaterialInput, MachineInput, MaterialInput,
@@ -18,7 +19,7 @@ const Mutation = {
                 content: content
             }
         });
-
+        pubsub.publish('ANNOUNCEMENT_CREATED', { AnnouncementCreated: newAnnouncement });
         return newAnnouncement;
     },
 
@@ -38,6 +39,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('ANNOUNCEMENT_DELETED', { AnnouncementDeleted: deleteAnnouncement });
         return deleteAnnouncement;
     },
 
@@ -62,6 +64,7 @@ const Mutation = {
                 content: content
             }
         });
+        pubsub.publish('ANNOUNCEMENT_UPDATED', { AnnouncementUpdated: editAnnouncement });
         return editAnnouncement;
     },
 
@@ -81,7 +84,7 @@ const Mutation = {
                 remain: remain
             }
         });
-
+        pubsub.publish('TOOL_CREATED', { ToolCreated: newTool });
         return newTool;
     },
 
@@ -101,6 +104,8 @@ const Mutation = {
                 id: id
             }
         });
+
+        pubsub.publish('TOOL_DELETED', { ToolDeleted: deleteTool });
         return deleteTool;
     },
 
@@ -133,6 +138,8 @@ const Mutation = {
                 remain: remain
             }
         });
+
+        pubsub.publish('TOOL_UPDATED', { ToolUpdated: editTool });
         return editTool;
     },
 
@@ -157,6 +164,8 @@ const Mutation = {
                 remain: remain
             }
         });
+
+        pubsub.publish('TOOL_UPDATED', { ToolUpdated: toolUsageUpdate });
         return toolUsageUpdate;
     },
 
@@ -365,7 +374,7 @@ const Mutation = {
                 broken: broken
             }
         });
-
+        pubsub.publish('THREEDP_CREATED', { ThreeDPCreated: newThreeDP });
         return newThreeDP;
     },
 
@@ -396,6 +405,8 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('THREEDP_DELETED', { ThreeDPDeleted: DeleteThreeDP });
+
         return DeleteThreeDP;
     },
 
@@ -431,7 +442,7 @@ const Mutation = {
                 borrowHistoryId: { push: newUserMaterial.id }
             }
         });
-
+        pubsub.publish('USERMATERIAL_CREATED', { UserMaterialCreated: newUserMaterial });
         return newUserMaterial;
     },
 
@@ -471,6 +482,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('USERMATERIAL_DELETED', { UserMaterialDeleted: DeleteUserMaterial });
         return DeleteUserMaterial;
     },
 
@@ -489,7 +501,7 @@ const Mutation = {
             }
         }
 
-        const newUsers = await prisma.user.create({
+        const newUser = await prisma.user.create({
             data: {
                 name: name,
                 studentID: studentID,
@@ -507,12 +519,12 @@ const Mutation = {
                     id: threeDPId
                 },
                 data: {
-                    waitingId: { push: newUsers.id }
+                    waitingId: { push: newUser.id }
                 }
             });
         }
-
-        return newUsers;
+        pubsub.publish('USER_CREATED', { UserCreated: newUser });
+        return newUser;
     },
 
     DeleteUser: async (_parents, args: { id: number }, context) => {
@@ -562,6 +574,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('USER_DELETED', { UserDeleted: DeleteUser });
         return DeleteUser;
     }
 

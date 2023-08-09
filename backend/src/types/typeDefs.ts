@@ -267,6 +267,21 @@ const typeDefs = `#graphql
     AddUser(userInput: UserInput!) : User
     DeleteUser(id: Int!): User
   }
+
+  type Subscription {
+    AnnouncementCreated: Announcement
+    AnnouncementDeleted: Announcement
+    AnnouncementUpdated: Announcement
+    ToolCreated: Tool
+    ToolDeleted: Tool
+    ToolUpdated: Tool
+    ThreeDPCreated: ThreeDP
+    ThreeDPDeleted: ThreeDP
+    UserMaterialCreated: UserMaterial
+    UserMaterialDeleted: UserMaterial
+    UserCreated: User
+    UserDeleted: User
+  }
 `;
 
 export { typeDefs, DateTime }
