@@ -131,7 +131,7 @@ const typeDefs = `#graphql
   }
 
   input UserMachineUpdateInput {
-    threeDPId: Int!
+    threeDPId: Int
     laserCutAvailable: Boolean!
   }
 
