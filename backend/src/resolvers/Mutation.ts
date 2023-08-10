@@ -443,6 +443,7 @@ const Mutation = {
                 broken: broken
             }
         });
+        pubsub.publish('THREEDP_EDIT', { ThreeDPEdited: editThreeDP });
         return editThreeDP;
     },
 
@@ -599,6 +600,7 @@ const Mutation = {
                 status: status
             }
         });
+        pubsub.publish('USERMATERIAL_EDIT', { UserMaterialEdited: editUserMaterial });
         return editUserMaterial;
     },
 
@@ -694,7 +696,7 @@ const Mutation = {
         return DeleteUser;
       },
 
-      EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
+    EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
         const id = args.id;
         const { name, studentID, password, photoLink} = args.userEditInput;
         const findUser = await prisma.user.findFirst({
@@ -717,6 +719,7 @@ const Mutation = {
                 photoLink: photoLink
             }
         });
+        pubsub.publish('USER_EDIT', { UserEdited: editUser });
         return editUser;
     },
 
@@ -794,6 +797,7 @@ const Mutation = {
                 laserCutAvailable: laserCutAvailable
             }
         });
+        pubsub.publish('USERMACHINE_UPDATE', { UserMachineUpdate: editUser });
         return editUser;
     }
 
