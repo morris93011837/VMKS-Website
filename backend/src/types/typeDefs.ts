@@ -174,6 +174,16 @@ const typeDefs = `#graphql
     remain: Boolean!
   }
 
+  input ArticleInput {
+    writerId: Int!,
+    description: String!,
+    imageURL: String,
+    title: String!,
+    headline: Boolean!,
+    content: String!,
+    userpic: String,
+  }
+
   type Material {
     id: Int!
     name: String!
@@ -247,6 +257,19 @@ const typeDefs = `#graphql
     threeDPId: Int
     laserCutAvailable: Boolean!
     borrowHistoryId: [Int]
+    articlesId: [Int]
+  }
+
+  type Article {
+    id: Int!
+    writerId: Int!,
+    description: String!,
+    imageURL: String,
+    time: String!,
+    title: String!,
+    headline: Boolean!,
+    content: String!,
+    userpic: String,
   }
 
 
@@ -271,6 +294,7 @@ const typeDefs = `#graphql
     AllThreeDP: [ThreeDP]
     SearchThreeDPByCategory(category: String!): [ThreeDP]
     SearchThreeDPByPosition(position: String!): [ThreeDP]
+    AllArticles: [Article]
   }
 
   type Mutation {
@@ -302,6 +326,7 @@ const typeDefs = `#graphql
     DeleteUser(id: Int!): User
     EditUser(id: Int!, userEditInput: UserEditInput!): User
     UserMachineUsageUpdate(id: Int!, userMachineUpdateInput: UserMachineUpdateInput!): User
+    AddArticle(articleInput: ArticleInput!): Article
   }
 
   type Subscription {
@@ -330,6 +355,7 @@ const typeDefs = `#graphql
     UserDeleted: User
     UserEdited: User
     UserMachineUpdate: User
+    ArticleCreated: Article
   }
 `;
 

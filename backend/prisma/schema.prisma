@@ -93,6 +93,8 @@ model User {
   laserCutAvailable Boolean
   borrowHistory     UserMaterial[]
   borrowHistoryId   Int[]
+  articles          Article[]
+  articlesId        Int[]
 }
 
 model UserMaterial {
@@ -105,4 +107,17 @@ model UserMaterial {
   borrowDate String
   returnDate String?
   status     String
+}
+
+model Article {
+  id          Int     @id @default(autoincrement())
+  writer      User    @relation(fields: [writerId], references: [id])
+  writerId    Int
+  description String
+  imageURL    String?
+  time        String
+  title       String
+  headline    Boolean
+  content     String
+  userpic     String?
 }

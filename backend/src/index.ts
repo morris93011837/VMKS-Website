@@ -22,7 +22,7 @@ const httpServer = http.createServer(app);
 
 const wsServer = new WebSocketServer({
   server: httpServer,
-  path: '/graphql',
+  path: '/',
 });
 
 const serverCleanup = useServer({ schema }, wsServer);
@@ -47,10 +47,10 @@ const server = new ApolloServer({
 });
 await server.start();
 
-app.use('/graphql', cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server));
+app.use('/', cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server));
 
 const PORT = 5000;
 // Now that our HTTP server is fully set up, we can listen to it.
 httpServer.listen(PORT, () => {
-  console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+  console.log(`🚀 Server ready at http://localhost:${PORT}/`);
 });

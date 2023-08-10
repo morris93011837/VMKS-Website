@@ -30,6 +30,29 @@ export type AnnouncementInput = {
   title: Scalars['String']['input'];
 };
 
+export type Article = {
+  __typename?: 'Article';
+  content: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  headline: Scalars['Boolean']['output'];
+  id: Scalars['Int']['output'];
+  imageURL?: Maybe<Scalars['String']['output']>;
+  time: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  userpic?: Maybe<Scalars['String']['output']>;
+  writerId: Scalars['Int']['output'];
+};
+
+export type ArticleInput = {
+  content: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  headline: Scalars['Boolean']['input'];
+  imageURL?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+  userpic?: InputMaybe<Scalars['String']['input']>;
+  writerId: Scalars['Int']['input'];
+};
+
 export type DisposableMaterial = {
   __typename?: 'DisposableMaterial';
   category: Scalars['String']['output'];
@@ -55,6 +78,11 @@ export type DisposableMaterialInput = {
   position: Scalars['String']['input'];
   remain: Scalars['Boolean']['input'];
   tutorialLink: Scalars['String']['input'];
+  usage: Scalars['Int']['input'];
+};
+
+export type DisposableMaterialUsageUpdateInput = {
+  remain: Scalars['Boolean']['input'];
   usage: Scalars['Int']['input'];
 };
 
@@ -120,6 +148,7 @@ export type MaterialUsageUpdateInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   AddAnnouncement?: Maybe<Announcement>;
+  AddArticle?: Maybe<Article>;
   AddDisposableMaterial?: Maybe<DisposableMaterial>;
   AddMachine?: Maybe<Machine>;
   AddMaterial?: Maybe<Material>;
@@ -128,23 +157,35 @@ export type Mutation = {
   AddUser?: Maybe<User>;
   AddUserMaterial?: Maybe<UserMaterial>;
   DeleteAnnouncement?: Maybe<Announcement>;
+  DeleteDisposableMaterial?: Maybe<DisposableMaterial>;
   DeleteMachine?: Maybe<Machine>;
   DeleteMaterial?: Maybe<Material>;
   DeleteThreeDP?: Maybe<ThreeDp>;
   DeleteTool?: Maybe<Tool>;
   DeleteUser?: Maybe<User>;
   DeleteUserMaterial?: Maybe<UserMaterial>;
+  DisposableMaterialUsageUpdate?: Maybe<DisposableMaterial>;
   EditAnnouncement?: Maybe<Announcement>;
+  EditDisposableMaterial?: Maybe<DisposableMaterial>;
   EditMachine?: Maybe<Machine>;
   EditMaterial?: Maybe<Material>;
+  EditThreeDP?: Maybe<ThreeDp>;
   EditTool?: Maybe<Tool>;
+  EditUser?: Maybe<User>;
+  EditUserMaterial?: Maybe<UserMaterial>;
   MaterialUsageUpdate?: Maybe<Material>;
   ToolUsageUpdate?: Maybe<Tool>;
+  UserMachineUsageUpdate?: Maybe<User>;
 };
 
 
 export type MutationAddAnnouncementArgs = {
   announcementInput: AnnouncementInput;
+};
+
+
+export type MutationAddArticleArgs = {
+  articleInput: ArticleInput;
 };
 
 
@@ -188,6 +229,11 @@ export type MutationDeleteAnnouncementArgs = {
 };
 
 
+export type MutationDeleteDisposableMaterialArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
 export type MutationDeleteMachineArgs = {
   id: Scalars['Int']['input'];
 };
@@ -218,8 +264,20 @@ export type MutationDeleteUserMaterialArgs = {
 };
 
 
+export type MutationDisposableMaterialUsageUpdateArgs = {
+  disposableMaterialUsageUpdateInput: DisposableMaterialUsageUpdateInput;
+  id: Scalars['Int']['input'];
+};
+
+
 export type MutationEditAnnouncementArgs = {
   announcementInput: AnnouncementInput;
+  id: Scalars['Int']['input'];
+};
+
+
+export type MutationEditDisposableMaterialArgs = {
+  disposableMaterialInput: DisposableMaterialInput;
   id: Scalars['Int']['input'];
 };
 
@@ -236,9 +294,27 @@ export type MutationEditMaterialArgs = {
 };
 
 
+export type MutationEditThreeDpArgs = {
+  id: Scalars['Int']['input'];
+  threeDPInput: ThreeDpInput;
+};
+
+
 export type MutationEditToolArgs = {
   id: Scalars['Int']['input'];
   toolInput: ToolInput;
+};
+
+
+export type MutationEditUserArgs = {
+  id: Scalars['Int']['input'];
+  userEditInput: UserEditInput;
+};
+
+
+export type MutationEditUserMaterialArgs = {
+  id: Scalars['Int']['input'];
+  userMaterialEditInput: UserMaterialEditInput;
 };
 
 
@@ -253,9 +329,16 @@ export type MutationToolUsageUpdateArgs = {
   toolUsageUpdateInput: ToolUsageUpdateInput;
 };
 
+
+export type MutationUserMachineUsageUpdateArgs = {
+  id: Scalars['Int']['input'];
+  userMachineUpdateInput: UserMachineUpdateInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   AllAnnouncements?: Maybe<Array<Maybe<Announcement>>>;
+  AllArticles?: Maybe<Array<Maybe<Article>>>;
   AllDisposableMaterials?: Maybe<Array<Maybe<DisposableMaterial>>>;
   AllMachines?: Maybe<Array<Maybe<Machine>>>;
   AllMaterials?: Maybe<Array<Maybe<Material>>>;
@@ -263,6 +346,8 @@ export type Query = {
   AllTools?: Maybe<Array<Maybe<Tool>>>;
   AllUser?: Maybe<Array<Maybe<User>>>;
   AllUserMaterials?: Maybe<Array<Maybe<UserMaterial>>>;
+  SearchDisposableMaterialsByCategory?: Maybe<Array<Maybe<DisposableMaterial>>>;
+  SearchDisposableMaterialsByPosition?: Maybe<Array<Maybe<DisposableMaterial>>>;
   SearchMachinesByCategory?: Maybe<Array<Maybe<Machine>>>;
   SearchMachinesByPosition?: Maybe<Array<Maybe<Machine>>>;
   SearchMaterialsByCategory?: Maybe<Array<Maybe<Material>>>;
@@ -271,6 +356,16 @@ export type Query = {
   SearchThreeDPByPosition?: Maybe<Array<Maybe<ThreeDp>>>;
   SearchToolsByCategory?: Maybe<Array<Maybe<Tool>>>;
   SearchToolsByPosition?: Maybe<Array<Maybe<Tool>>>;
+};
+
+
+export type QuerySearchDisposableMaterialsByCategoryArgs = {
+  category: Scalars['String']['input'];
+};
+
+
+export type QuerySearchDisposableMaterialsByPositionArgs = {
+  position: Scalars['String']['input'];
 };
 
 
@@ -318,6 +413,29 @@ export type Subscription = {
   AnnouncementCreated?: Maybe<Announcement>;
   AnnouncementDeleted?: Maybe<Announcement>;
   AnnouncementUpdated?: Maybe<Announcement>;
+  ArticleCreated?: Maybe<Article>;
+  DisposableMaterialCreated?: Maybe<DisposableMaterial>;
+  DisposableMaterialDeleted?: Maybe<DisposableMaterial>;
+  DisposableMaterialUpdated?: Maybe<DisposableMaterial>;
+  MachineCreated?: Maybe<Machine>;
+  MachineDeleted?: Maybe<Machine>;
+  MachineUpdated?: Maybe<Machine>;
+  MaterialCreated?: Maybe<Material>;
+  MaterialDeleted?: Maybe<Material>;
+  MaterialUpdated?: Maybe<Material>;
+  ThreeDPCreated?: Maybe<ThreeDp>;
+  ThreeDPDeleted?: Maybe<ThreeDp>;
+  ThreeDPEdited?: Maybe<ThreeDp>;
+  ToolCreated?: Maybe<Tool>;
+  ToolDeleted?: Maybe<Tool>;
+  ToolUpdated?: Maybe<Tool>;
+  UserCreated?: Maybe<User>;
+  UserDeleted?: Maybe<User>;
+  UserEdited?: Maybe<User>;
+  UserMachineUpdate?: Maybe<User>;
+  UserMaterialCreated?: Maybe<UserMaterial>;
+  UserMaterialDeleted?: Maybe<UserMaterial>;
+  UserMaterialEdited?: Maybe<UserMaterial>;
 };
 
 export type ThreeDp = {
@@ -378,6 +496,7 @@ export type ToolUsageUpdateInput = {
 
 export type User = {
   __typename?: 'User';
+  articlesId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   borrowHistoryId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   id: Scalars['Int']['output'];
   laserCutAvailable: Scalars['Boolean']['output'];
@@ -388,12 +507,24 @@ export type User = {
   threeDPId?: Maybe<Scalars['Int']['output']>;
 };
 
+export type UserEditInput = {
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  photoLink: Scalars['String']['input'];
+  studentID: Scalars['String']['input'];
+};
+
 export type UserInput = {
   laserCutAvailable: Scalars['Boolean']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   photoLink: Scalars['String']['input'];
   studentID: Scalars['String']['input'];
+  threeDPId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UserMachineUpdateInput = {
+  laserCutAvailable: Scalars['Boolean']['input'];
   threeDPId?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -407,6 +538,16 @@ export type UserMaterial = {
   partName?: Maybe<Scalars['String']['output']>;
   returnDate?: Maybe<Scalars['String']['output']>;
   status: Scalars['String']['output'];
+};
+
+export type UserMaterialEditInput = {
+  borrowDate: Scalars['String']['input'];
+  borrowNum: Scalars['Int']['input'];
+  borrowerId: Scalars['Int']['input'];
+  name: Scalars['String']['input'];
+  partName?: InputMaybe<Scalars['String']['input']>;
+  returnDate: Scalars['String']['input'];
+  status: Scalars['String']['input'];
 };
 
 export type UserMaterialInput = {
