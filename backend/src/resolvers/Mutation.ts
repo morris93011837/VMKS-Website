@@ -2,7 +2,7 @@ import { prisma } from "../../prisma/client.ts";
 import { pubsub } from "../PubSub/pubsub.ts";
 import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
-    DisposableMaterialInput, MachineInput, MaterialInput,
+    DisposableMaterialInput, DisposableMaterialUsageUpdateInput, MachineInput, MaterialInput,
     MaterialUsageUpdateInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput,
     UserInput, UserEditInput, UserMachineUpdateInput
 } from "../types/types.ts";
@@ -240,6 +240,31 @@ const Mutation = {
         });
         pubsub.publish('DISPOSABLEMATERIAL_UPDATED', { DisposableMaterialUpdated: editDisposableMaterial });
         return editDisposableMaterial;
+    },
+
+    DisposableMaterialUsageUpdate: async ( parent, args: { id: number, disposableMaterialUsageUpdateInput: DisposableMaterialUsageUpdateInput }, content ) => {
+        const id = args.id;
+        const { usage, remain } = args.disposableMaterialUsageUpdateInput;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+
+        const disposableMaterialUsageUpdate = await prisma.disposableMaterial.update({
+            where: {
+                id: id
+            },
+            data: {
+                usage: usage,
+                remain: remain
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_UPDATED', { DisposableMaterialUpdated: disposableMaterialUsageUpdate});
+        return disposableMaterialUsageUpdate;
     },
 
     AddMachine: async (_parents, args: { machineInput: MachineInput }, content) => {
