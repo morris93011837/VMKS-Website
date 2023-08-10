@@ -301,6 +301,9 @@ const typeDefs = `#graphql
     ToolCreated: Tool
     ToolDeleted: Tool
     ToolUpdated: Tool
+    MachineCreated: Machine
+    MachineDeleted: Machine
+    MachineUpdated: Machine
     MaterialCreated: Material
     MaterialDeleted: Material
     MaterialUpdated: Material
