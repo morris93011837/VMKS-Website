@@ -190,6 +190,25 @@ const Mutation = {
         return newDisposableMaterial;
     },
 
+    DeleteDisposableMaterial: async ( parent, args: { id: number }, context ) => {
+        const id = args.id;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        })
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+        const deleteDisposableMaterial = await prisma.disposableMaterial.delete({
+            where: {
+                id: id
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_DELETED', { DisposableMaterialDeleted: deleteDisposableMaterial });
+        return deleteDisposableMaterial;
+    },
+
     AddMachine: async (_parents, args: { machineInput: MachineInput }, content) => {
         const { name, partName, category, position, description,
             photoLink, usage, tutorialLink } = args.machineInput;
