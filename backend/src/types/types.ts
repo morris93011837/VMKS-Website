@@ -33,6 +33,11 @@ interface DisposableMaterialInput {
     remain: boolean
 }
 
+interface DisposableMaterialUsageUpdateInput {
+    usage: number,
+    remain: boolean
+}
+
 interface MaterialInput {
     name: string,
     partName: string|null,
@@ -114,4 +119,4 @@ interface UserMachineUpdateInput {
     laserCutAvailable: boolean
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput, UserInput, UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }
+export { AnnouncementInput, ToolInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput, UserInput, UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, DisposableMaterialInput, DisposableMaterialUsageUpdateInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }

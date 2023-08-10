@@ -169,6 +169,11 @@ const typeDefs = `#graphql
     remain: Boolean!
   }
 
+  input DisposableMaterialUsageUpdateInput {
+    usage: Int!
+    remain: Boolean!
+  }
+
   type Material {
     id: Int!
     name: String!
@@ -250,6 +255,8 @@ const typeDefs = `#graphql
   type Query {
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
+    SearchDisposableMaterialsByCategory(category: String!): [DisposableMaterial]
+    SearchDisposableMaterialsByPosition(position: String!): [DisposableMaterial]
     AllMaterials: [Material]
     SearchMaterialsByCategory(category: String!): [Material]
     SearchMaterialsByPosition(position: String!): [Material]
@@ -275,6 +282,9 @@ const typeDefs = `#graphql
     EditTool(id: Int!, toolInput: ToolInput!): Tool
     ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
+    DeleteDisposableMaterial(id: Int!): DisposableMaterial
+    EditDisposableMaterial(id: Int!, disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
+    DisposableMaterialUsageUpdate(id: Int!, disposableMaterialUsageUpdateInput: DisposableMaterialUsageUpdateInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     DeleteMachine(id: Int!): Machine
     EditMachine(id: Int!, machineInput: MachineInput!): Machine

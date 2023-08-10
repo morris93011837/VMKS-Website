@@ -2,7 +2,7 @@ import { prisma } from "../../prisma/client.ts";
 import { pubsub } from "../PubSub/pubsub.ts";
 import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
-    DisposableMaterialInput, MachineInput, MaterialInput,
+    DisposableMaterialInput, DisposableMaterialUsageUpdateInput, MachineInput, MaterialInput,
     MaterialUsageUpdateInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput,
     UserInput, UserEditInput, UserMachineUpdateInput
 } from "../types/types.ts";
@@ -188,6 +188,83 @@ const Mutation = {
         });
 
         return newDisposableMaterial;
+    },
+
+    DeleteDisposableMaterial: async ( parent, args: { id: number }, context ) => {
+        const id = args.id;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        })
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+        const deleteDisposableMaterial = await prisma.disposableMaterial.delete({
+            where: {
+                id: id
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_DELETED', { DisposableMaterialDeleted: deleteDisposableMaterial });
+        return deleteDisposableMaterial;
+    },
+
+    EditDisposableMaterial: async ( parents, args: {id: number, disposableMaterialInput: DisposableMaterialInput} ) => {
+        const id = args.id;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink, fee, remain } = args.disposableMaterialInput;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+        const editDisposableMaterial = await prisma.disposableMaterial.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                fee: fee,
+                remain: remain
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_UPDATED', { DisposableMaterialUpdated: editDisposableMaterial });
+        return editDisposableMaterial;
+    },
+
+    DisposableMaterialUsageUpdate: async ( parent, args: { id: number, disposableMaterialUsageUpdateInput: DisposableMaterialUsageUpdateInput }, content ) => {
+        const id = args.id;
+        const { usage, remain } = args.disposableMaterialUsageUpdateInput;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+
+        const disposableMaterialUsageUpdate = await prisma.disposableMaterial.update({
+            where: {
+                id: id
+            },
+            data: {
+                usage: usage,
+                remain: remain
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_UPDATED', { DisposableMaterialUpdated: disposableMaterialUsageUpdate});
+        return disposableMaterialUsageUpdate;
     },
 
     AddMachine: async (_parents, args: { machineInput: MachineInput }, content) => {
