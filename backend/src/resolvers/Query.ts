@@ -74,6 +74,21 @@ const Query = {
     return searchDisposableMaterialsByCategory;
   },
 
+  SearchDisposableMaterialsByPosition: async ( parent, args: { position: string }, context ) => {
+    const position = args.position;
+    const searchDisposableMaterialsByPosition = await prisma.disposableMaterial.findMany({
+      where: {
+        position: {
+          startsWith: position
+        }
+      },
+      orderBy: {
+        usage: "desc"
+      }
+    });
+    return searchDisposableMaterialsByPosition;
+  },
+
   AllMachines: async (_parents, args, context) => {
     const machines = await prisma.machine.findMany({
       orderBy: {
