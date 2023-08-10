@@ -3,8 +3,8 @@ import { pubsub } from "../PubSub/pubsub.ts";
 import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
     DisposableMaterialInput, MachineInput, MaterialInput,
-    MaterialUsageUpdateInput, UserMaterialInput, ThreeDPInput,
-    UserInput
+    MaterialUsageUpdateInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput,
+    UserInput, UserEditInput, UserMachineUpdateInput
 } from "../types/types.ts";
 
 const Mutation = {
@@ -410,6 +410,37 @@ const Mutation = {
         return DeleteThreeDP;
     },
 
+    EditThreeDP: async(_parents, args: { id: number, threeDPInput: ThreeDPInput }, context) => {
+        const id = args.id;
+        const { name, category, position, 
+                description, photoLink, usage, tutorialLink, broken } = args.threeDPInput;
+        const findThreeDP = await prisma.threeDP.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findThreeDP) { 
+            throw new Error("threeDP not found!");
+        }
+
+        const editThreeDP = await prisma.threeDP.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                broken: broken
+            }
+        });
+        return editThreeDP;
+    },
+
     AddUserMaterial: async (_parents, args: { userMaterialInput: UserMaterialInput }, context) => {
         const { name, partName, borrowerId, borrowNum, status } = args.userMaterialInput;
         const findBorrower = await prisma.user.findFirst({
@@ -484,6 +515,86 @@ const Mutation = {
         });
         pubsub.publish('USERMATERIAL_DELETED', { UserMaterialDeleted: DeleteUserMaterial });
         return DeleteUserMaterial;
+    },
+
+    EditUserMaterial: async(_parents, args: { id: number, userMaterialEditInput: UserMaterialEditInput }, context) => {
+        const id = args.id;
+        const { name, partName, borrowerId, borrowNum, borrowDate, returnDate, status} = args.userMaterialEditInput;
+        const findUserMaterial = await prisma.userMaterial.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findUserMaterial) { 
+            throw new Error("userMaterial not found!");
+        }
+
+        const oldBorrowerId = findUserMaterial.borrowerId;
+        if(!borrowerId || !oldBorrowerId){
+            throw new Error("id not found!");
+        }
+        if(borrowerId !== oldBorrowerId){
+            const oldUser = await prisma.user.findFirst({
+                where: {
+                    id: oldBorrowerId
+                }
+            });
+            if(!oldUser){
+                throw new Error("old user not found!");
+            }
+            const borrowHistoryID = oldUser.borrowHistoryId;
+            const index = borrowHistoryID.indexOf(id);
+            borrowHistoryID.splice(index, 1);
+            const updateOldUser = await prisma.user.update({
+                where: {
+                    id: oldBorrowerId
+                },
+                data: {
+                    borrowHistoryId: borrowHistoryID
+                }
+            });
+            if(!updateOldUser){
+                throw new Error("update old user failed!");
+            }
+
+            const newUser = await prisma.user.findFirst({
+                where: {
+                    id: borrowerId
+                }
+            });
+            if(!newUser){
+                throw new Error("new user not found!");
+            }
+            const newBorrowHistoryID = newUser.borrowHistoryId;
+            newBorrowHistoryID.push(id);
+            const updateNewUser = await prisma.user.update({
+                where: {
+                    id: borrowerId
+                },
+                data: {
+                    borrowHistoryId: newBorrowHistoryID
+                }
+            });
+            if(!updateNewUser){
+                throw new Error("update new user failed!");
+            }
+        }
+
+        const editUserMaterial = await prisma.userMaterial.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                borrowerId: borrowerId,
+                borrowNum: borrowNum,
+                borrowDate: borrowDate,
+                returnDate: returnDate,
+                status: status
+            }
+        });
+        return editUserMaterial;
     },
 
     AddUser: async (_parents, args: { userInput: UserInput }, context) => {
@@ -576,6 +687,109 @@ const Mutation = {
         });
         pubsub.publish('USER_DELETED', { UserDeleted: DeleteUser });
         return DeleteUser;
+      },
+
+      EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
+        const id = args.id;
+        const { name, studentID, password, photoLink} = args.userEditInput;
+        const findUser = await prisma.user.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findUser) { 
+            throw new Error("user not found!");
+        }
+
+        const editUser = await prisma.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                studentID: studentID,
+                password: password,
+                photoLink: photoLink
+            }
+        });
+        return editUser;
+    },
+
+    UserMachineUsageUpdate: async(_parents, args: { id: number, userMachineUpdateInput: UserMachineUpdateInput }, context) => {
+        const id = args.id;
+        const { threeDPId, laserCutAvailable} = args.userMachineUpdateInput;
+        const findUser = await prisma.user.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findUser) { 
+            throw new Error("user not found!");
+        }
+
+        const oldThreeDPId = findUser.threeDPId;
+        
+        if(threeDPId !== oldThreeDPId){
+            if(oldThreeDPId !== null){
+                const oldThreeDP = await prisma.threeDP.findFirst({
+                    where: {
+                        id: oldThreeDPId
+                    }
+                });
+                if(!oldThreeDP){
+                    throw new Error("old threeDP not found!");
+                }
+                const oldWaitingID = oldThreeDP.waitingId;
+                const index = oldWaitingID.indexOf(id);
+                oldWaitingID.splice(index, 1);
+                const updateOldThreeDP = await prisma.threeDP.update({
+                    where: {
+                        id: oldThreeDPId
+                    },
+                    data: {
+                        waitingId: oldWaitingID
+                    }
+                });
+                if(!updateOldThreeDP){
+                    throw new Error("update old threeDP failed!");
+                }
+            }
+            
+            if(threeDPId !== null){
+                const newThreeDP = await prisma.threeDP.findFirst({
+                    where: {
+                        id: threeDPId
+                    }
+                });
+                if(!newThreeDP){
+                    throw new Error("new threeDP not found!");
+                }
+                const newWaitingID = newThreeDP.waitingId;
+                newWaitingID.push(id);
+                const updateNewThreeDP = await prisma.threeDP.update({
+                    where: {
+                        id: threeDPId
+                    },
+                    data: {
+                        waitingId: newWaitingID
+                    }
+                });
+                if(!updateNewThreeDP){
+                    throw new Error("update new threeDP failed!");
+                }
+            }
+        }
+
+        const editUser = await prisma.user.update({
+            where: {
+                id: id
+            },
+            data: {
+                threeDPId: threeDPId,
+                laserCutAvailable: laserCutAvailable
+            }
+        });
+        return editUser;
     }
 
 }

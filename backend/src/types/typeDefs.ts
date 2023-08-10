@@ -104,6 +104,16 @@ const typeDefs = `#graphql
     status:     String!
   }
 
+  input UserMaterialEditInput {
+    name: String!
+    partName: String
+    borrowerId: Int!
+    borrowNum: Int!
+    borrowDate: String!
+    returnDate: String!
+    status: String!
+  }
+
   input UserInput {
     name: String!
     studentID: String!
@@ -111,6 +121,18 @@ const typeDefs = `#graphql
     photoLink: String!   
     threeDPId: Int           
     laserCutAvailable: Boolean!        
+  }
+
+  input UserEditInput {
+    name: String!
+    studentID: String!
+    password: String!
+    photoLink: String!
+  }
+
+  input UserMachineUpdateInput {
+    threeDPId: Int
+    laserCutAvailable: Boolean!
   }
 
   type Announcement {
@@ -262,10 +284,14 @@ const typeDefs = `#graphql
     MaterialUsageUpdate(id: Int!, materialUsageUpdateInput: MaterialUsageUpdateInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
     DeleteUserMaterial(id: Int!): UserMaterial
+    EditUserMaterial(id: Int!, userMaterialEditInput: UserMaterialEditInput!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
     DeleteThreeDP(id: Int!): ThreeDP
+    EditThreeDP(id: Int!, threeDPInput: ThreeDPInput!): ThreeDP
     AddUser(userInput: UserInput!) : User
     DeleteUser(id: Int!): User
+    EditUser(id: Int!, userEditInput: UserEditInput!): User
+    UserMachineUsageUpdate(id: Int!, userMachineUpdateInput: UserMachineUpdateInput!): User
   }
 
   type Subscription {
