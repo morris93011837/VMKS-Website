@@ -186,7 +186,7 @@ const Mutation = {
                 remain: remain
             }
         });
-
+        pubsub.publish('DISPOSABLEMATERIAL_CREATED', { DisposableMaterialCreated: newDisposableMaterial });
         return newDisposableMaterial;
     },
 

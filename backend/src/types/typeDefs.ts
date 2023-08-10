@@ -311,6 +311,9 @@ const typeDefs = `#graphql
     ToolCreated: Tool
     ToolDeleted: Tool
     ToolUpdated: Tool
+    DisposableMaterialCreated: DisposableMaterial
+    DisposableMaterialDeleted: DisposableMaterial
+    DisposableMaterialUpdated: DisposableMaterial
     MachineCreated: Machine
     MachineDeleted: Machine
     MachineUpdated: Machine

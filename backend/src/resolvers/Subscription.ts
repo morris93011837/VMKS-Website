@@ -19,6 +19,15 @@ const Subscription = {
     ToolUpdated: {
         subscribe: () => pubsub.asyncIterator(['TOOL_UPDATED'])
     },
+    DisposableMaterialCreated: {
+        subscribe: () => pubsub.asyncIterator(['DISPOSABLEMATERIAL_CREATED']) 
+    },
+    DisposableMaterialDeleted: {
+        subscribe: () => pubsub.asyncIterator(['DISPOSABLEMATERIAL_DELETED'])
+    },
+    DisposableMaterialUpdated: {
+        subscribe: () => pubsub.asyncIterator(['DISPOSABLEMATERIAL_UPDATED'])
+    },
     MachineCreated: {
         subscribe: () => pubsub.asyncIterator(['MACHINE_CREATED'])
     },
