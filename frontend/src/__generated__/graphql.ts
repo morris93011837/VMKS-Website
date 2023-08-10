@@ -30,6 +30,29 @@ export type AnnouncementInput = {
   title: Scalars['String']['input'];
 };
 
+export type Article = {
+  __typename?: 'Article';
+  content: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  headline: Scalars['Boolean']['output'];
+  id: Scalars['Int']['output'];
+  imageURL?: Maybe<Scalars['String']['output']>;
+  time: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  userpic?: Maybe<Scalars['String']['output']>;
+  writerId: Scalars['Int']['output'];
+};
+
+export type ArticleInput = {
+  content: Scalars['String']['input'];
+  description: Scalars['String']['input'];
+  headline: Scalars['Boolean']['input'];
+  imageURL?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
+  userpic?: InputMaybe<Scalars['String']['input']>;
+  writerId: Scalars['Int']['input'];
+};
+
 export type DisposableMaterial = {
   __typename?: 'DisposableMaterial';
   category: Scalars['String']['output'];
@@ -125,6 +148,7 @@ export type MaterialUsageUpdateInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   AddAnnouncement?: Maybe<Announcement>;
+  AddArticle?: Maybe<Article>;
   AddDisposableMaterial?: Maybe<DisposableMaterial>;
   AddMachine?: Maybe<Machine>;
   AddMaterial?: Maybe<Material>;
@@ -157,6 +181,11 @@ export type Mutation = {
 
 export type MutationAddAnnouncementArgs = {
   announcementInput: AnnouncementInput;
+};
+
+
+export type MutationAddArticleArgs = {
+  articleInput: ArticleInput;
 };
 
 
@@ -309,6 +338,7 @@ export type MutationUserMachineUsageUpdateArgs = {
 export type Query = {
   __typename?: 'Query';
   AllAnnouncements?: Maybe<Array<Maybe<Announcement>>>;
+  AllArticles?: Maybe<Array<Maybe<Article>>>;
   AllDisposableMaterials?: Maybe<Array<Maybe<DisposableMaterial>>>;
   AllMachines?: Maybe<Array<Maybe<Machine>>>;
   AllMaterials?: Maybe<Array<Maybe<Material>>>;
@@ -383,6 +413,7 @@ export type Subscription = {
   AnnouncementCreated?: Maybe<Announcement>;
   AnnouncementDeleted?: Maybe<Announcement>;
   AnnouncementUpdated?: Maybe<Announcement>;
+  ArticleCreated?: Maybe<Article>;
   DisposableMaterialCreated?: Maybe<DisposableMaterial>;
   DisposableMaterialDeleted?: Maybe<DisposableMaterial>;
   DisposableMaterialUpdated?: Maybe<DisposableMaterial>;
@@ -465,6 +496,7 @@ export type ToolUsageUpdateInput = {
 
 export type User = {
   __typename?: 'User';
+  articlesId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   borrowHistoryId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   id: Scalars['Int']['output'];
   laserCutAvailable: Scalars['Boolean']['output'];
