@@ -276,6 +276,7 @@ const typeDefs = `#graphql
     ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     DeleteDisposableMaterial(id: Int!): DisposableMaterial
+    EditDisposableMaterial(id: Int!, disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     DeleteMachine(id: Int!): Machine
     EditMachine(id: Int!, machineInput: MachineInput!): Machine

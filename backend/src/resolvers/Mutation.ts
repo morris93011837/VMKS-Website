@@ -209,6 +209,39 @@ const Mutation = {
         return deleteDisposableMaterial;
     },
 
+    EditDisposableMaterial: async ( parents, args: {id: number, disposableMaterialInput: DisposableMaterialInput} ) => {
+        const id = args.id;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink, fee, remain } = args.disposableMaterialInput;
+        const findDisposableMaterial = await prisma.disposableMaterial.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findDisposableMaterial) {
+            throw new Error("disposableMaterial not found!");
+        }
+        const editDisposableMaterial = await prisma.disposableMaterial.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                fee: fee,
+                remain: remain
+            }
+        });
+        pubsub.publish('DISPOSABLEMATERIAL_UPDATED', { DisposableMaterialUpdated: editDisposableMaterial });
+        return editDisposableMaterial;
+    },
+
     AddMachine: async (_parents, args: { machineInput: MachineInput }, content) => {
         const { name, partName, category, position, description,
             photoLink, usage, tutorialLink } = args.machineInput;
