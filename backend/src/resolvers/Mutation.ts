@@ -4,7 +4,7 @@ import {
     AnnouncementInput, ToolInput, ToolUsageUpdateInput,
     DisposableMaterialInput, DisposableMaterialUsageUpdateInput, MachineInput, MaterialInput,
     MaterialUsageUpdateInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput,
-    UserInput, UserEditInput, UserMachineUpdateInput
+    UserInput, UserEditInput, UserMachineUpdateInput, ArticleInput
 } from "../types/types.ts";
 
 const Mutation = {
@@ -876,6 +876,44 @@ const Mutation = {
         });
         pubsub.publish('USERMACHINE_UPDATE', { UserMachineUpdate: editUser });
         return editUser;
+    },
+
+    AddArticle: async (_parents: any, args: { articleInput: ArticleInput }, context: any) => {
+        const { writerId, description, imageURL, title, 
+                headline, content, userpic } = args.articleInput;
+        const findWriter = await prisma.user.findFirst({
+            where: {
+                id: writerId
+            }
+        })
+        if (!findWriter) {
+            throw new Error("Writer not found!");
+        }
+
+        const date = new Date().toUTCString();
+        const newArticle = await prisma.article.create({
+            data: {
+                writerId: writerId,
+                description: description,
+                imageURL: imageURL,
+                time: date,
+                title: title,
+                headline: headline,
+                content: content,
+                userpic: userpic,
+            }
+        });
+
+        const updateArticles = await prisma.user.update({
+            where: {
+                id: writerId
+            },
+            data: {
+                articlesId: { push: newArticle.id }
+            }
+        });
+        pubsub.publish('ARTICLE_CREATED', { ArticleCreated: newArticle });
+        return newArticle;
     }
 
 }

@@ -119,4 +119,18 @@ interface UserMachineUpdateInput {
     laserCutAvailable: boolean
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, UserMaterialEditInput, ThreeDPInput, UserInput, UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, DisposableMaterialInput, DisposableMaterialUsageUpdateInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }
+interface ArticleInput {
+    writerId: number,
+    description: string,
+    imageURL: string,
+    title: string,
+    headline: boolean,
+    content: string,
+    userpic: string,
+}
+
+export { AnnouncementInput, ToolInput, UserMaterialInput, 
+        UserMaterialEditInput, ThreeDPInput, UserInput, 
+        UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, 
+        DisposableMaterialInput, DisposableMaterialUsageUpdateInput, 
+        MachineInput, MaterialInput, MaterialUsageUpdateInput, ArticleInput }

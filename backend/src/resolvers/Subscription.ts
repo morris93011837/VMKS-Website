@@ -75,6 +75,9 @@ const Subscription = {
     },
     UserMachineUpdate: {
         subscribe: () => pubsub.asyncIterator(['USERMACHINE_UPDATE'])
+    },
+    ArticleCreated: {
+        subscribe: () => pubsub.asyncIterator(['ARTICLE_CREATED']) 
     }
 }
 

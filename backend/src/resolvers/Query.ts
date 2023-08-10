@@ -222,6 +222,15 @@ const Query = {
     return UserMaterials;
   },
 
+  AllArticles: async (_parents, args, context) => {
+    const articles = await prisma.article.findMany({
+      orderBy: {
+        id: "desc"
+      }
+    });
+    return articles;
+  }
+
 }
 
 export { Query }
