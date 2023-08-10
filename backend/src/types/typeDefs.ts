@@ -255,6 +255,7 @@ const typeDefs = `#graphql
   type Query {
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
+    SearchDisposableMaterialsByCategory(category: String!): [DisposableMaterial]
     AllMaterials: [Material]
     SearchMaterialsByCategory(category: String!): [Material]
     SearchMaterialsByPosition(position: String!): [Material]
