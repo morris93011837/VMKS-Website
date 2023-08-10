@@ -205,7 +205,7 @@ const Mutation = {
                 tutorialLink: tutorialLink
             }
         });
-
+        pubsub.publish('MACHINE_CREATED', { MachineCreated: newMachine });
         return newMachine;
     },
 
@@ -224,6 +224,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('MACHINE_DELETED', { MachineDeleted: deleteMachine });
         return deleteMachine;
     },
 
@@ -254,6 +255,7 @@ const Mutation = {
                 tutorialLink: tutorialLink
             }
         });
+        pubsub.publish('MACHINE_UPDATED', { MachineUpdated: editMachine });
         return editMachine;
     },
 
@@ -276,7 +278,7 @@ const Mutation = {
                 remain: remain
             }
         });
-
+        pubsub.publish('MATERIAL_CREATED', { MaterialCreated: newMaterial });
         return newMaterial;
     },
 
@@ -296,6 +298,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('MATERIAL_DELETED', { MaterialDeleted: deleteMaterial});
         return deleteMaterial;
     },
 
@@ -331,6 +334,7 @@ const Mutation = {
                 remain: remain
             }
         });
+        pubsub.publish('MATERIAL_UPDATED', { MaterialUpdated: editMaterial});
         return editMaterial;
     },
 
@@ -355,6 +359,7 @@ const Mutation = {
                 remain: remain
             }
         });
+        pubsub.publish('MATERIAL_UPDATED', { MaterialUpdated: materialUsageUpdate});
         return materialUsageUpdate;
     },
 
@@ -691,7 +696,7 @@ const Mutation = {
         return DeleteUser;
       },
 
-      EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
+    EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
         const id = args.id;
         const { name, studentID, password, photoLink} = args.userEditInput;
         const findUser = await prisma.user.findFirst({
