@@ -276,7 +276,7 @@ const Mutation = {
                 remain: remain
             }
         });
-
+        pubsub.publish('MATERIAL_CREATED', { MaterialCreated: newMaterial });
         return newMaterial;
     },
 
@@ -296,6 +296,7 @@ const Mutation = {
                 id: id
             }
         });
+        pubsub.publish('MATERIAL_DELETED', { MaterialDeleted: deleteMaterial});
         return deleteMaterial;
     },
 
@@ -331,6 +332,7 @@ const Mutation = {
                 remain: remain
             }
         });
+        pubsub.publish('MATERIAL_UPDATED', { MaterialUpdated: editMaterial});
         return editMaterial;
     },
 
@@ -355,6 +357,7 @@ const Mutation = {
                 remain: remain
             }
         });
+        pubsub.publish('MATERIAL_UPDATED', { MaterialUpdated: materialUsageUpdate});
         return materialUsageUpdate;
     },
 

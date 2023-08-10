@@ -19,6 +19,15 @@ const Subscription = {
     ToolUpdated: {
         subscribe: () => pubsub.asyncIterator(['TOOL_UPDATED'])
     },
+    MaterialCreated: {
+        subscribe: () => pubsub.asyncIterator(['MATERIAL_CREATED']) 
+    },
+    MaterialDeleted: {
+        subscribe: () => pubsub.asyncIterator(['MATERIAL_DELETED'])
+    },
+    MaterialUpdated: {
+        subscribe: () => pubsub.asyncIterator(['MATERIAL_UPDATED'])
+    },
     ThreeDPCreated: {
         subscribe: () => pubsub.asyncIterator(['THREEDP_CREATED'])
     },
