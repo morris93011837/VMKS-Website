@@ -18,7 +18,7 @@ const TutorialPage = () => {
       <div style={{
         width: '100px',
         height: '100px',
-        position: 'fixed',
+        position: 'sticky',
         marginLeft: '30px',
         marginTop: '30px'
       }}>
@@ -27,9 +27,9 @@ const TutorialPage = () => {
         <li onClick={() => scrollToSection(sessionC)}>影片</li>
       </div >
       <div style={{ width: '88%', marginLeft: '150px', marginTop: '30px', marginBottom: '30px' }}>
-        <div>Tutorial Page</div>
+        {/* <div>Tutorial Page</div>
         <p>理應要有新手教學，分為互動式和功能一覽</p>
-        <br></br>
+        <br></br> */}
         <h2 ref={sessionA}>互動</h2>
         <div>
           <p>歡迎來到 Virtual MKS — 台大電機系創客空間的虛擬 Maker Space！在這裡，我們為您提供一個簡單而強大的材料工具管理平台，幫助您輕鬆追蹤和組織所有材料和工具的使用情況。
