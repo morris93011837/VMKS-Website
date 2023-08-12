@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./HomePage.css"; // Import your custom CSS file
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -15,10 +16,10 @@ export const HomePage = () => {
   ];
 
   const scheduleData = [
-    ["9:00-12:00", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
-    ["13:00-16:00 (A)", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
-    ["13:00-16:00 (B)", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
-    ["18:00-21:00", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
+    ["9:00-12:00", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
+    ["13:00-16:00 (A)", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
+    ["13:00-16:00 (B)", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
+    ["18:00-21:00", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian", "Brian"],
   ];
 
   return (
@@ -35,15 +36,16 @@ export const HomePage = () => {
         <br />
         <button onClick={() => navigate("/AnnouncementPage")}>View all</button>
         <br />
-        <b>常用連結</b>
+        <b><h3>常用連結</h3></b>
+
         <br />
-        <button>Edit</button>
+
         <br />
         <div>
           <div style={{ textAlign: "center" }}>
             <b>Opening Hours</b>
           </div>
-          <table>
+          <table className="styled-table">
             <thead>
               <tr>
                 <th>Time</th>
@@ -63,7 +65,9 @@ export const HomePage = () => {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> 
+         
     </div>
+    
   );
 };
