@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import mapImg from "../images/interior2D_1.jpg"
+import mapImg from "../images/interior2D.jpg"
 import { colors } from '../Color';
 import Icon from '@mdi/react';
 import { mdiArrowLeftDropCircleOutline } from '@mdi/js';

@@ -1,19 +1,19 @@
-import { useNavigate , Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import React, { useState } from "react"
 
 const AnnouncementPage = () => {
-  const navigate = useNavigate()
-  let counts=0
+  const navigate = useNavigate();
+  let counts=0;
 
-  const [visible, setVisible] = useState(false)
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
+  const [visible, setVisible] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const formSubmit = () => {
-    counts++
-    const newAnnouncement = document.createElement("a")
+    counts++;
+    const newAnnouncement = document.createElement("a");
     const tmp = document.getElementById("Title") as HTMLInputElement;
-    newAnnouncement.textContent = tmp.value
-    newAnnouncement.href = "/Announcement/"+counts
+    newAnnouncement.textContent = tmp.value;
+    newAnnouncement.href = "/Announcement/"+counts;
     setTitle("");
     setContent("");
     setVisible(false);
