@@ -1,6 +1,6 @@
 import React from "react"
 import Button from '@mui/material/Button';
-// import "./HomePage.css"; 
+import "./HomePage.css"; // Import your custom CSS file
 import envImg from "../images/MKS_environment.jpg"
 import { colors } from '../Color'
 import { Link } from 'react-router-dom'
@@ -94,21 +94,6 @@ export const HomePage = () => {
   );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import { useNavigate } from "react-router-dom"
 
 // export const HomePage = () => {
@@ -138,3 +123,4 @@ export const HomePage = () => {
 //     </div>
 //   )
 // }
+
