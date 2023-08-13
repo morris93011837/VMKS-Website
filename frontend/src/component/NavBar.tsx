@@ -20,12 +20,12 @@ export const NavBar = () => {
       <Box>
         <AppBar position="static" style={{backgroundColor:'#67B9C7'}}>
           <Toolbar style={{display: 'flex', justifyContent: 'flex-end', minHeight:'24px'}}>
-            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff'}}>
+            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff',border:'3px solid #FFFFFF',borderBottomWidth: '0px',borderRightWidth: '0px',borderTopWidth:'0px',borderRadius:'0px'}}>
               <Link to="IntroductionPage" style={{ textDecoration: "none", color: "white" }}>
                   MKS介紹
               </Link>
             </Button>
-            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff'}}>
+            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff',border:'3px solid #FFFFFF',borderBottomWidth: '0px',borderTopWidth:'0px',borderRadius:'0px'}}>
               <Link to="MapPage" style={{ textDecoration: "none", color: "white" }}>
                 地圖導覽
               </Link>
@@ -35,7 +35,7 @@ export const NavBar = () => {
                  資源一覽
               </Link>
             </Button>
-            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff'}}>
+            <Button variant="text" size="large" style={{backgroundColor:'#67b9c7ff',border:'3px solid #FFFFFF',borderBottomWidth: '0px',borderTopWidth:'0px',borderRadius:'0px'}}>
               <Link to="TutorialPage" style={{ textDecoration: "none", color: "white" }}>
                  新手教學
               </Link>
