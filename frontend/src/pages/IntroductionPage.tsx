@@ -1,10 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useRef } from "react"
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import { colors } from '../Color';
+import {  List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import Icon from '@mdi/react';
 import { mdiArrowLeftDropCircleOutline } from '@mdi/js';
 

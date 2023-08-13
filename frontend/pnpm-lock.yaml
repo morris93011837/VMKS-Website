@@ -20,6 +20,12 @@ dependencies:
   '@graphql-typed-document-node/core':
     specifier: ^3.2.0
     version: 3.2.0(graphql@16.7.1)
+  '@mdi/js':
+    specifier: ^7.2.96
+    version: 7.2.96
+  '@mdi/react':
+    specifier: ^1.6.1
+    version: 1.6.1
   '@mui/icons-material':
     specifier: ^5.14.1
     version: 5.14.1(@mui/material@5.14.2)(@types/react@18.2.12)(react@18.2.0)
@@ -3325,6 +3331,16 @@ packages:
 
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
+    dev: false
+
+  /@mdi/js@7.2.96:
+    resolution: {integrity: sha512-paR9M9ZT7rKbh2boksNUynuSZMHhqRYnEZOm/KrZTjQ4/FzyhjLHuvw/8XYzP+E7fS4+/Ms/82EN1pl/OFsiIA==}
+    dev: false
+
+  /@mdi/react@1.6.1:
+    resolution: {integrity: sha512-4qZeDcluDFGFTWkHs86VOlHkm6gnKaMql13/gpIcUQ8kzxHgpj31NuCkD8abECVfbULJ3shc7Yt4HJ6Wu6SN4w==}
+    dependencies:
+      prop-types: 15.8.1
     dev: false
 
   /@mui/base@5.0.0-beta.8(@types/react@18.2.12)(react-dom@18.2.0)(react@18.2.0):
