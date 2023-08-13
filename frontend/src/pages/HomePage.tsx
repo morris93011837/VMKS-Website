@@ -1,9 +1,14 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react"
+import Button from '@mui/material/Button';
 import "./HomePage.css"; // Import your custom CSS file
+import envImg from "../images/MKS_environment.jpg"
+import { colors } from '../Color'
+import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 
 export const HomePage = () => {
   const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const daysOfWeek = [
     "Monday",
@@ -24,25 +29,43 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div>Home Page</div>
-      <p>
-        歡迎來到 Virtual MakerSpace 的首頁
-        這裡有東西囉
-        <br />
-        應該要有:簡略公告、常用連結、管理員班表
-      </p>
       <div>
-        <b>Announcement</b>
-        <br />
-        <button onClick={() => navigate("/AnnouncementPage")}>View all</button>
-        <br />
-        <b><h3>常用連結</h3></b>
-
-        <br />
-
-        <br />
+        {/* <div>Home Page</div>
+        <p>
+          歡迎來到 Virtual MakerSpace 的首頁
+          這裡有東西囉
+          <br />
+          應該要有:簡略公告、常用連結、管理員班表
+        </p> */}
+        <div style={{ position: 'relative', maxWidth: '100%' }}>
+          <img src={envImg} alt="Environment" style={{ maxWidth: '100%' }} useMap="#image-map" />
+          <map name="image-map">
+            <area shape="rect" coords="x1,y1,x2,y2" alt="Learn More" href="LearnMore" />
+            {/* Define the coordinates (x1, y1, x2, y2) for the clickable area */}
+          </map>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
+            <p style={{ color: '#FFFFFF', fontSize: 'xxx-large', marginBottom: '16px' }}>New To Us ?</p>
+            <p style={{ color: '#FFFFFF', fontSize: 'xxx-large', marginTop: '0px' }}>Click here to learn more!</p>
+            <a href="LearnMore">
+              <button>
+                <Link to="/TutorialPage" style={{ textDecoration: "none", color: "Black" }}>
+                  Go
+                </Link>
+              </button>
+            </a>
+            
+          </div>
+        </div>
         <div>
-          <div style={{ textAlign: "center" }}>
+          <b>Announcement</b>
+          <br />
+          <button onClick={() => navigate("/AnnouncementPage")}>View all</button>
+          <br />
+          <b><h3>常用連結</h3></b>
+          <br />
+          <br />
+          <div>
+            <div style={{ textAlign: "center" }}>
             <b>Opening Hours</b>
           </div>
           <table className="styled-table">
@@ -65,9 +88,39 @@ export const HomePage = () => {
             </tbody>
           </table>
         </div>
-      </div> 
-         
+      </div>
+      </div>
     </div>
-    
   );
 };
+
+// import { useNavigate } from "react-router-dom"
+
+// export const HomePage = () => {
+//   const navigate = useNavigate()
+//   return (
+//     <div>
+//       <div>Home Page</div>
+//       <p>
+//         歡迎來到 Virtual MakerSpace的首頁
+//         這裡空空如也
+//         <br></br>
+//         應該要有:簡略公告、常用連結、管理員班表
+//       </p>
+//       <div>
+//         <b>Announcement</b>
+//         <br></br>
+//         <button onClick={() => navigate("/AnnouncementPage")}>View all</button>
+//         <br></br>
+//         <b>常用連結</b>
+//         <br></br>
+//         <button>Edit</button>
+//         <br></br>
+//         <div>
+//           <b>班表</b>
+//         </div>
+//       </div>
+//     </div>
+//   )
+// }
+
