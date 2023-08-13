@@ -1,14 +1,13 @@
 import React from 'react'
-
+import vmks_footer_logo from "../images/footer_logo.png"
 const Footer = () => {
   return (
     <footer>
       <img
-        src="VMKS_logo.png"
-        alt="Footer Image"
+        src={vmks_footer_logo}
+        alt="Footer"
         style={{ width: '100px', height: '100px' , float:'left',marginRight:'100px'}} 
       />
-      <p style={{ fontSize: '30px', color: '#333', float:'left' }}>Virtual MKS</p>
       
       <a href="https://www.facebook.com/ntuee.makerspace/?locale=zh_TW">
       <img
