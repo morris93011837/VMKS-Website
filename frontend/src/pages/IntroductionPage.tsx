@@ -74,8 +74,6 @@ const IntroductionPage = () => {
         </div >
         
         <div style={{marginLeft:'180px'}}>
-          {/* <div>IntroductionPage Page</div>
-          <p>這裡需要有簡介、管理員班表、使用者規範</p>*/}
           <br></br> 
           <div style={{ display: 'flex',alignItems: 'center'}}>
             <button onClick={() => navigate(-1)} style={{ backgroundColor: 'transparent', border: 'none', marginLeft:'10px',cursor: 'pointer',}}>
