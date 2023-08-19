@@ -1,3 +1,4 @@
+import { json } from 'body-parser';
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
@@ -229,6 +230,35 @@ const Query = {
       }
     });
     return articles;
+  },
+  
+  SearchMachineByName: async (_parents, args: { input: string }, context) => {
+    const input = args.input;
+    const inputLength = args.input.length;
+    
+    const ordered = Array(20);
+    for (let i = 0; i < ordered.length; i++) {
+      ordered[i] = [];
+    }
+
+    const machine = await prisma.machine.findMany({
+      where: {
+        name: {
+          contains: input
+        }
+      }
+    });
+
+    for (let obj of machine) {
+      for (let i = 0; i < obj.name.length - inputLength + 1; i++){
+        if(obj.name.substring(i, i + inputLength) === input) {
+          ordered[i].push(obj);
+        }
+      }
+    } 
+
+    // console.log(ordered.filter((args) => {return args.length !== 0}).flat());
+    return ordered.filter((args) => {return args.length !== 0}).flat();   //making the returning array an array of machines without any empty arrays
   }
 
 }

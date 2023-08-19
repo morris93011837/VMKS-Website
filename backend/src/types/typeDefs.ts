@@ -295,6 +295,7 @@ const typeDefs = `#graphql
     SearchThreeDPByCategory(category: String!): [ThreeDP]
     SearchThreeDPByPosition(position: String!): [ThreeDP]
     AllArticles: [Article]
+    SearchMachineByName(input: String!): [Machine]
   }
 
   type Mutation {
