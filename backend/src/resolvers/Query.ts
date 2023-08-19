@@ -250,7 +250,7 @@ const Query = {
     });
 
     for (let obj of machine) {
-      for (let i = 0; i < obj.name.length; i++){
+      for (let i = 0; i < obj.name.length - inputLength; i++){
         if(obj.name.substring(i, i + inputLength) === input) {
           ordered[i].push(obj);
         }
