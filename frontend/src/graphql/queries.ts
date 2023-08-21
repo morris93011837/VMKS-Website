@@ -1,7 +1,7 @@
 import { gql } from "../__generated__"
 
-export const ALL_ANNOUNCEMENT_QUERY = gql(`
-    query Query {
+const ALL_ANNOUNCEMENT_QUERY = gql(`
+    query AllAnnouncements {
         AllAnnouncements {
             id
             title
@@ -11,3 +11,4 @@ export const ALL_ANNOUNCEMENT_QUERY = gql(`
     }
 `);
 
+export { ALL_ANNOUNCEMENT_QUERY };

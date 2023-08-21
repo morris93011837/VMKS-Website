@@ -13,7 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n    query Query {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n": types.QueryDocument,
+    "\n    mutation AddAnnouncement($announcementInput: AnnouncementInput!) {\n        AddAnnouncement(announcementInput: $announcementInput) {\n          id\n          title\n          date\n          content\n        }\n      }\n": types.AddAnnouncementDocument,
+    "\n    query AllAnnouncements {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n": types.AllAnnouncementsDocument,
+    "\n    query AllTools {\n        AllTools {\n            id\n            name\n            partName\n            category\n            position\n            description\n            photoLink\n            usage\n            tutorialLink\n            remain\n        }\n  }\n": types.AllToolsDocument,
 };
 
 /**
@@ -33,7 +35,15 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n    query Query {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n"): (typeof documents)["\n    query Query {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n"];
+export function gql(source: "\n    mutation AddAnnouncement($announcementInput: AnnouncementInput!) {\n        AddAnnouncement(announcementInput: $announcementInput) {\n          id\n          title\n          date\n          content\n        }\n      }\n"): (typeof documents)["\n    mutation AddAnnouncement($announcementInput: AnnouncementInput!) {\n        AddAnnouncement(announcementInput: $announcementInput) {\n          id\n          title\n          date\n          content\n        }\n      }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query AllAnnouncements {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n"): (typeof documents)["\n    query AllAnnouncements {\n        AllAnnouncements {\n            id\n            title\n            date\n            content\n        }\n    }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n    query AllTools {\n        AllTools {\n            id\n            name\n            partName\n            category\n            position\n            description\n            photoLink\n            usage\n            tutorialLink\n            remain\n        }\n  }\n"): (typeof documents)["\n    query AllTools {\n        AllTools {\n            id\n            name\n            partName\n            category\n            position\n            description\n            photoLink\n            usage\n            tutorialLink\n            remain\n        }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
