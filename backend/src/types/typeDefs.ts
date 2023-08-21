@@ -280,6 +280,7 @@ const typeDefs = `#graphql
     AllDisposableMaterials: [DisposableMaterial]
     SearchDisposableMaterialsByCategory(category: String!): [DisposableMaterial]
     SearchDisposableMaterialsByPosition(position: String!): [DisposableMaterial]
+    SearchDisposableMaterialsByName(name: String!): [DisposableMaterial]
     AllMaterials: [Material]
     SearchMaterialsByCategory(category: String!): [Material]
     SearchMaterialsByPosition(position: String!): [Material]
