@@ -1,4 +1,5 @@
 import { json } from 'body-parser';
+import { DisposableMaterial } from '@prisma/client';
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
