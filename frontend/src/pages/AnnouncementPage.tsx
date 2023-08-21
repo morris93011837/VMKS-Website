@@ -2,11 +2,7 @@ import { useNavigate } from "react-router-dom"
 import React, { useState, FunctionComponent } from "react"
 import { ADD_ANNOUNCEMENT_MUTATION } from "../graphql";
 import { useMutation } from "@apollo/client";
-
-type Announcement = {
-  title: string,
-  content: string
-}
+import { AnnouncementInput } from "../../../backend/src/types/types"
 
 const AnnouncementPage = () => {
   const navigate = useNavigate();
@@ -33,7 +29,7 @@ const AnnouncementPage = () => {
   if (loading) return 'Submitting...';
   if (error) return `Submission error! ${error.message}`;
 
-  const formSubmit = ({title, content}: Announcement) => {
+  const formSubmit = ({title, content}: AnnouncementInput) => {
     setCounter((c) => c += 1);
     addAnnouncement({
       variables: {

@@ -129,7 +129,7 @@ interface ArticleInput {
     userpic: string,
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, 
+export type { AnnouncementInput, ToolInput, UserMaterialInput, 
         UserMaterialEditInput, ThreeDPInput, UserInput, 
         UserEditInput, UserMachineUpdateInput, ToolUsageUpdateInput, 
         DisposableMaterialInput, DisposableMaterialUsageUpdateInput, 
