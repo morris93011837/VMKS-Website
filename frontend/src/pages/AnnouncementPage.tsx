@@ -6,11 +6,11 @@ import { AnnouncementInput } from "../../../backend/src/types/types"
 
 const AnnouncementPage = () => {
   const navigate = useNavigate();
-  // let counts=0;
-  const [counter, setCounter] = useState(0);
   const [visible, setVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [counter, setCounter] = useState(0);
+  // let counts=0;
 
   /* Wang's pervious code
   const formSubmit = () => {
