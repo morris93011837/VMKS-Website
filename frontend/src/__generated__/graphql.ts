@@ -348,6 +348,7 @@ export type Query = {
   AllUserMaterials?: Maybe<Array<Maybe<UserMaterial>>>;
   SearchDisposableMaterialsByCategory?: Maybe<Array<Maybe<DisposableMaterial>>>;
   SearchDisposableMaterialsByPosition?: Maybe<Array<Maybe<DisposableMaterial>>>;
+  SearchMachineByName?: Maybe<Array<Maybe<Machine>>>;
   SearchMachinesByCategory?: Maybe<Array<Maybe<Machine>>>;
   SearchMachinesByPosition?: Maybe<Array<Maybe<Machine>>>;
   SearchMaterialsByCategory?: Maybe<Array<Maybe<Material>>>;
@@ -366,6 +367,11 @@ export type QuerySearchDisposableMaterialsByCategoryArgs = {
 
 export type QuerySearchDisposableMaterialsByPositionArgs = {
   position: Scalars['String']['input'];
+};
+
+
+export type QuerySearchMachineByNameArgs = {
+  input: Scalars['String']['input'];
 };
 
 
@@ -559,10 +565,24 @@ export type UserMaterialInput = {
   status: Scalars['String']['input'];
 };
 
-export type QueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type AddAnnouncementMutationVariables = Exact<{
+  announcementInput: AnnouncementInput;
+}>;
 
 
-export type QueryQuery = { __typename?: 'Query', AllAnnouncements?: Array<{ __typename?: 'Announcement', id: number, title: string, date: string, content: string } | null> | null };
+export type AddAnnouncementMutation = { __typename?: 'Mutation', AddAnnouncement?: { __typename?: 'Announcement', id: number, title: string, date: string, content: string } | null };
+
+export type AllAnnouncementsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export const QueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Query"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AllAnnouncements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<QueryQuery, QueryQueryVariables>;
+export type AllAnnouncementsQuery = { __typename?: 'Query', AllAnnouncements?: Array<{ __typename?: 'Announcement', id: number, title: string, date: string, content: string } | null> | null };
+
+export type AllToolsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllToolsQuery = { __typename?: 'Query', AllTools?: Array<{ __typename?: 'Tool', id: number, name: string, partName?: string | null, category: string, position: string, description: string, photoLink: string, usage: number, tutorialLink: string, remain: number } | null> | null };
+
+
+export const AddAnnouncementDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"AddAnnouncement"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"announcementInput"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AnnouncementInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AddAnnouncement"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"announcementInput"},"value":{"kind":"Variable","name":{"kind":"Name","value":"announcementInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<AddAnnouncementMutation, AddAnnouncementMutationVariables>;
+export const AllAnnouncementsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllAnnouncements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AllAnnouncements"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"date"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]} as unknown as DocumentNode<AllAnnouncementsQuery, AllAnnouncementsQueryVariables>;
+export const AllToolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"AllTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"AllTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"partName"}},{"kind":"Field","name":{"kind":"Name","value":"category"}},{"kind":"Field","name":{"kind":"Name","value":"position"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"photoLink"}},{"kind":"Field","name":{"kind":"Name","value":"usage"}},{"kind":"Field","name":{"kind":"Name","value":"tutorialLink"}},{"kind":"Field","name":{"kind":"Name","value":"remain"}}]}}]}}]} as unknown as DocumentNode<AllToolsQuery, AllToolsQueryVariables>;
