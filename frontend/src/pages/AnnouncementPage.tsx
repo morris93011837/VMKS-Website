@@ -10,9 +10,9 @@ const AnnouncementPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [counter, setCounter] = useState(0);
-  // let counts=0;
-
+  
   /* Wang's pervious code
+  let counts=0;
   const formSubmit = () => {
     counts++;
     const newAnnouncement = document.createElement("a");
