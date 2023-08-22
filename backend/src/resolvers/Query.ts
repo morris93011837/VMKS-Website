@@ -1,4 +1,5 @@
 import { json } from 'body-parser';
+import { DisposableMaterial } from '@prisma/client';
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
@@ -88,6 +89,69 @@ const Query = {
       }
     });
     return searchDisposableMaterialsByPosition;
+  },
+
+  SearchDisposableMaterialsByName: async ( parent, args: { name: string }, context ) => {
+    const _name = args.name;
+    const searchDisposableMaterialsByName = await prisma.disposableMaterial.findMany({
+      where: {
+        name: {
+          contains: _name
+        }
+      },
+      orderBy: {
+        usage: "desc"
+      }
+    });
+    if (searchDisposableMaterialsByName.length === 0) return searchDisposableMaterialsByName;
+    let pos: number[] = []; // pos is used to store the position of the _name in each string
+    let pi: number[] = []; // KMP
+    let posCount: number[] = []; // used in counting sort
+    let maxPos = -1; // used in counting sort
+    pi[0] = 0;
+    let k = 0;
+    for (let i = 1; i < _name.length; i++) {
+        while (k > 0 && _name[k] !== _name[i]) {
+            k = pi[k - 1];
+        }
+        if (_name[k] == _name[i]) {
+            k += 1;
+        }
+        pi[i] = k;
+    }
+    for (let i = 0; i < searchDisposableMaterialsByName.length; i++) {
+        const disposableMaterialName = searchDisposableMaterialsByName[i].name;
+        k = 0;
+        for (let j = 0; j < disposableMaterialName.length; j++) {
+            while (k > 0 && _name[k] !== disposableMaterialName[j]) {
+                k = pi[k - 1];
+            }
+            if (_name[k] === disposableMaterialName[j]) {
+                k += 1;
+            }
+            if (k === _name.length) {
+                pos[i] = j - k + 1;
+                if (pos[i] > maxPos) {
+                    for (let l = maxPos + 1; l <= pos[i]; l++) {
+                        posCount[l] = 0;
+                    }
+                    maxPos = pos[i];
+                }
+                posCount[pos[i]] += 1;
+                break;
+            }
+        }
+    }
+    //Counting sort
+    for (let i = 1; i <= maxPos; i++) {
+        posCount[i] += posCount[i - 1];
+    }
+    let orderedSearchDisposableMaterialsByName: DisposableMaterial[] = [];
+    for (let i = 0; i < searchDisposableMaterialsByName.length; i++) {
+        posCount[pos[i]] -= 1;
+        orderedSearchDisposableMaterialsByName[posCount[pos[i]]] = searchDisposableMaterialsByName[i];
+    }
+    return orderedSearchDisposableMaterialsByName;
   },
 
   AllMachines: async (_parents, args, context) => {
