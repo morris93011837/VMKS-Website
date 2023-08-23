@@ -776,7 +776,7 @@ const Mutation = {
 
     EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
         const id = args.id;
-        const { name, studentID, password, photoLink, isAdmin} = args.userEditInput;
+        const { name, studentID, password, photoLink, isAdmin } = args.userEditInput;
         const findUser = await prisma.user.findFirst({
             where: { 
                 id: id 
