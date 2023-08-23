@@ -14,6 +14,7 @@ const MaterialAndToolPage = lazy(() => import('./pages/MaterialAndToolPage'))
 const ShoppingList = lazy(() => import('./pages/ShoppingList'))
 const AnnouncementPage = lazy(() => import('./pages/AnnouncementPage'))
 const Announcement = lazy(() => import('./component/Announcement'))
+const AnnouncementCreated = lazy(() => import('./component/Subscription'))
 const Material = lazy(() => import('./component/MaterialAndTool/Material'))
 const Tool = lazy(() => import('./component/MaterialAndTool/Tool'))
 function App() {
@@ -50,12 +51,13 @@ function App() {
         } />
         <Route path='LoginPage' element={
           <Suspense fallback={<div>Loading...</div>}>
-            <LoginPage/>
+            <LoginPage />
           </Suspense>
         } />
         <Route path='AnnouncementPage' element={
           <Suspense fallback={<div>Loading...</div>}>
             <AnnouncementPage />
+            <AnnouncementCreated />
           </Suspense>
         } />
         <Route path='Announcement/:id' element={
@@ -68,7 +70,7 @@ function App() {
             <MaterialDetail />
           </Suspense>
         } />
-        
+
         <Route path='MaterialAndTool/Tool/:id' element={
           <Suspense fallback={<div>Loading...</div>}>
             <Tool />
