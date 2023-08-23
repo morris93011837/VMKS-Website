@@ -683,7 +683,7 @@ const Mutation = {
 
     AddUser: async (_parents, args: { userInput: UserInput }, context) => {
         const { name, studentID, password, photoLink, threeDPId,
-            laserCutAvailable } = args.userInput;
+            laserCutAvailable, isAdmin } = args.userInput;
         if (threeDPId) {
             const findThreeDP = await prisma.threeDP.findFirst({
                 where: {
@@ -704,7 +704,8 @@ const Mutation = {
                 photoLink: photoLink,
                 threeDPId: threeDPId,
                 laserCutAvailable: laserCutAvailable,
-                borrowHistoryId: []
+                borrowHistoryId: [],
+                isAdmin: isAdmin
             }
         });
 
@@ -775,7 +776,7 @@ const Mutation = {
 
     EditUser: async(_parents, args: { id: number, userEditInput: UserEditInput }, context) => {
         const id = args.id;
-        const { name, studentID, password, photoLink} = args.userEditInput;
+        const { name, studentID, password, photoLink, isAdmin } = args.userEditInput;
         const findUser = await prisma.user.findFirst({
             where: { 
                 id: id 
@@ -793,7 +794,8 @@ const Mutation = {
                 name: name,
                 studentID: studentID,
                 password: password,
-                photoLink: photoLink
+                photoLink: photoLink,
+                isAdmin: isAdmin
             }
         });
         pubsub.publish('USER_EDIT', { UserEdited: editUser });

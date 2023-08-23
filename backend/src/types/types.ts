@@ -105,13 +105,15 @@ interface UserInput {
     photoLink: string,
     threeDPId: number,            
     laserCutAvailable: boolean,    
+    isAdmin: boolean
 }
 
 interface UserEditInput {
     name: string,
     studentID: string,
     password: string,
-    photoLink: string
+    photoLink: string,
+    isAdmin: boolean
 }
 
 interface UserMachineUpdateInput {

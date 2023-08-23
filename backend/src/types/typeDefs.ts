@@ -121,6 +121,7 @@ const typeDefs = `#graphql
     photoLink: String!   
     threeDPId: Int           
     laserCutAvailable: Boolean!        
+    isAdmin: Boolean!
   }
 
   input UserEditInput {
@@ -128,6 +129,7 @@ const typeDefs = `#graphql
     studentID: String!
     password: String!
     photoLink: String!
+    isAdmin: Boolean!
   }
 
   input UserMachineUpdateInput {
@@ -258,6 +260,7 @@ const typeDefs = `#graphql
     laserCutAvailable: Boolean!
     borrowHistoryId: [Int]
     articlesId: [Int]
+    isAdmin: Boolean!
   }
 
   type Article {
