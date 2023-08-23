@@ -1,4 +1,8 @@
 <h1 align="center">Virtual Makerspace</h1>
+
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/90591931/262723964-96c0b3ac-ffa2-46cb-967f-b19286ca6dfe.png" alt="Logo" width="150" height="150">
+</p> 
   
 ## Development  
 ### Step 1 : Use Specific NodeJS Version  
@@ -65,9 +69,17 @@ kill the port being stucked : `sudo kill -9 $(sudo lsof -t -i:port)`. If you wan
 
 ## Run Frontend(Backend should run first)
 
-### Step 1 : Start React app(frontend)
+### Step 1 : Update GraphQL Code Generator
 
 ```sh
+cd frontend
+pnpm compile
+```
+
+### Step 2 : Start React app(frontend)
+
+```sh
+cd ..
 pnpm frontend
 ```
 

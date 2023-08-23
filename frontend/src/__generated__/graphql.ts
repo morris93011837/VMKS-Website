@@ -511,31 +511,31 @@ export type User = {
   articlesId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   borrowHistoryId?: Maybe<Array<Maybe<Scalars['Int']['output']>>>;
   id: Scalars['Int']['output'];
+  isAdmin: Scalars['Boolean']['output'];
   laserCutAvailable: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
   photoLink: Scalars['String']['output'];
   studentID: Scalars['String']['output'];
   threeDPId?: Maybe<Scalars['Int']['output']>;
-  isAdmin: Scalars['Boolean']['output'];
 };
 
 export type UserEditInput = {
+  isAdmin: Scalars['Boolean']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   photoLink: Scalars['String']['input'];
   studentID: Scalars['String']['input'];
-  isAdmin: Scalars['Boolean']['input'];
 };
 
 export type UserInput = {
+  isAdmin: Scalars['Boolean']['input'];
   laserCutAvailable: Scalars['Boolean']['input'];
   name: Scalars['String']['input'];
   password: Scalars['String']['input'];
   photoLink: Scalars['String']['input'];
   studentID: Scalars['String']['input'];
   threeDPId?: InputMaybe<Scalars['Int']['input']>;
-  isAdmin: Scalars['Boolean']['input'];
 };
 
 export type UserMachineUpdateInput = {
