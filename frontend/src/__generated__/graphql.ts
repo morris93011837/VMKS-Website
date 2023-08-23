@@ -511,6 +511,7 @@ export type User = {
   photoLink: Scalars['String']['output'];
   studentID: Scalars['String']['output'];
   threeDPId?: Maybe<Scalars['Int']['output']>;
+  isAdmin: Scalars['Boolean']['output'];
 };
 
 export type UserEditInput = {
@@ -518,6 +519,7 @@ export type UserEditInput = {
   password: Scalars['String']['input'];
   photoLink: Scalars['String']['input'];
   studentID: Scalars['String']['input'];
+  isAdmin: Scalars['Boolean']['input'];
 };
 
 export type UserInput = {
@@ -527,6 +529,7 @@ export type UserInput = {
   photoLink: Scalars['String']['input'];
   studentID: Scalars['String']['input'];
   threeDPId?: InputMaybe<Scalars['Int']['input']>;
+  isAdmin: Scalars['Boolean']['input'];
 };
 
 export type UserMachineUpdateInput = {
