@@ -1,5 +1,5 @@
 import { json } from 'body-parser';
-import { DisposableMaterial } from '@prisma/client';
+import { DisposableMaterial, User } from '@prisma/client';
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
@@ -271,6 +271,69 @@ const Query = {
   AllUser: async () => {
     const users = await prisma.user.findMany();
     return users;
+  },
+
+  SearchUserByName: async ( parent, args: { name: string }, context ) => {
+    const _name = args.name;
+    const searchUserByName = await prisma.user.findMany({
+      where: {
+        name: {
+          contains: _name
+        }
+      },
+      orderBy: {
+        id: "desc"
+      }
+    });
+    if (searchUserByName.length === 0) return searchUserByName;
+    let pos: number[] = []; // pos is used to store the position of the _name in each string
+    let pi: number[] = []; // KMP
+    let posCount: number[] = []; // used in counting sort
+    let maxPos = -1; // used in counting sort
+    pi[0] = 0;
+    let k = 0;
+    for (let i = 1; i < _name.length; i++) {
+        while (k > 0 && _name[k] !== _name[i]) {
+            k = pi[k - 1];
+        }
+        if (_name[k] == _name[i]) {
+            k += 1;
+        }
+        pi[i] = k;
+    }
+    for (let i = 0; i < searchUserByName.length; i++) {
+        const userName = searchUserByName[i].name;
+        k = 0;
+        for (let j = 0; j < userName.length; j++) {
+            while (k > 0 && _name[k] !== userName[j]) {
+                k = pi[k - 1];
+            }
+            if (_name[k] === userName[j]) {
+                k += 1;
+            }
+            if (k === _name.length) {
+                pos[i] = j - k + 1;
+                if (pos[i] > maxPos) {
+                    for (let l = maxPos + 1; l <= pos[i]; l++) {
+                        posCount[l] = 0;
+                    }
+                    maxPos = pos[i];
+                }
+                posCount[pos[i]] += 1;
+                break;
+            }
+        }
+    }
+    //Counting sort
+    for (let i = 1; i <= maxPos; i++) {
+        posCount[i] += posCount[i - 1];
+    }
+    let orderedSearchUserByName: User[] = [];
+    for (let i = 0; i < searchUserByName.length; i++) {
+        posCount[pos[i]] -= 1;
+        orderedSearchUserByName[posCount[pos[i]]] = searchUserByName[i];
+    }
+    return orderedSearchUserByName;
   },
 
   AllUserMaterials: async () => {
