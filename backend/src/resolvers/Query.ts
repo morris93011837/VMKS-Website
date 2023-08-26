@@ -52,6 +52,48 @@ const Query = {
     return searchToolsByPosition;
   },
 
+  SearchToolsByName: async (_parents, args: {name: string}, context) => {
+    const input = args.name;
+    const inputLen = input.length;
+    const searchToolByName = await prisma.tool.findMany({
+      where: {
+        name: {
+          contains: input
+        }
+      }
+    })
+
+    const len = searchToolByName.length;
+    let position = [];
+    let counter = [];
+    for(var i = 0; i < 30; i++){
+      counter.push(0);
+    }
+    let max = 0;
+
+    for(var i = 0; i < len; i++){
+      for(var j = 0; j < searchToolByName[i].name.length - inputLen + 1; j++){
+        if(input === searchToolByName[i].name.substring(j, j + inputLen)){
+          position[i] = j;
+          counter[j] += 1;
+          if(j > max){
+            max = j;
+          }
+        }
+      }
+    }
+
+    let orderedTool = [];
+    for( var i = 1; i <= max; i++){
+      counter[i] = counter[i] + counter[i-1];
+    }
+    for(var i = 0; i < len; i++){
+      orderedTool[counter[position[i]] - 1] = searchToolByName[i];
+      counter[position[i]]--;
+    }
+    return orderedTool;
+  },
+
   AllDisposableMaterials: async (_parents, args, context) => {
     const materials = await prisma.disposableMaterial.findMany({
       orderBy: {
@@ -228,6 +270,48 @@ const Query = {
     });
 
     return searchMaterialsByPosition;
+  },
+
+  SearchMaterialByName: async (_parents, args: {name: string}, context) => {
+    const input = args.name;
+    const inputLen = input.length;
+    const searchMaterialByName = await prisma.material.findMany({
+      where: {
+        name: {
+          contains: input
+        }
+      }
+    })
+
+    const len = searchMaterialByName.length;
+    let position = [];
+    let counter = [];
+    for(var i = 0; i < 30; i++){
+      counter.push(0);
+    }
+    let max = 0;
+
+    for(var i = 0; i < len; i++){
+      for(var j = 0; j < searchMaterialByName[i].name.length - inputLen + 1; j++){
+        if(input === searchMaterialByName[i].name.substring(j, j + inputLen)){
+          position[i] = j;
+          counter[j] += 1;
+          if(j > max){
+            max = j;
+          }
+        }
+      }
+    }
+
+    let orderedMaterial = [];
+    for( var i = 1; i <= max; i++){
+      counter[i] = counter[i] + counter[i-1];
+    }
+    for(var i = 0; i < len; i++){
+      orderedMaterial[counter[position[i]] - 1] = searchMaterialByName[i];
+      counter[position[i]]--;
+    }
+    return orderedMaterial;
   },
 
   AllThreeDP: async () => {
